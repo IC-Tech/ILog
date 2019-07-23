@@ -48,7 +48,24 @@ class ILog extends Component {
 						r[i] = <div key={'k' + i}><span className='c1'>Title {i + 1}</span><span className='c2'>Content {i + 1}</span><span className='c3'>{Date().toString()}</span></div>
 					return r
 				})()}</div>
-				<div className='Editor'></div>
+				<div className='Editor' style={{display: 'none'}}>
+					<div className='c2'>
+						<label>Name:<input type='text'/></label>
+					</div>
+					<div className='c1'>
+						<label>Create Date:<input type='date'/></label>
+					</div>
+					<div className='c1'>
+						<label>Create Time:<input type='time'/></label>
+					</div>
+					<div className='c1'>
+						<label>Last Update Date:<input type='date'/></label>
+					</div>
+					<div className='c1'>
+						<label>Last Update Time:<input type='time'/></label>
+					</div>
+					<textarea></textarea>
+				</div>
 				<div className='menu'>
 					<div className='c1'>
 						<div>
