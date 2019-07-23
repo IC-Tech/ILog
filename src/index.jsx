@@ -2,26 +2,63 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import './style.css'
+import './Themes.css'
 
 class ILog extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 		}
+		this.SetMent = this.SetMent.bind(this)
+		this.backAction = null
 	}
   componentDidMount() {
+  	var a = () => {
+			if(this.backAction != null) {
+				this.backAction()
+				return false
+			}
+		}
+		document.addEventListener('backbutton', a)
+		document.addEventListener('keydown', e => {
+			if(e.key == 'Escape') a()
+		})
+		document.querySelector('.menu').addEventListener('click', e => {
+			if(e.target.classList.contains('menu')) this.SetMent(0)
+		})
+  }
+  SetMent(v) {
+  	document.querySelector('html').style.overflow = v == true ? 'hidden' : 'unset'
+  	document.querySelector('.menu').style.display = v == true ? 'block' : 'none'
+  	this.backAction = v ? (() => this.SetMent(0)) : null
   }
 	render() {
 		return (
 			<div id='ILog' className='ICApp'>
 				<div className='top-c1'></div>
 				<div className='top'>
-					<div className='c2'><div></div><div></div><div></div></div>
+					<div className='c2' onClick={() => this.SetMent(true)}><div></div><div></div><div></div></div>
 					<div className='c1'>
 						<span>ILog</span>
 					</div>
 				</div>
-				<div className='Entry'></div>
+				<div className='Entry'>{(()=>{
+					var r = []
+					for(var i=0; i<30; i++)
+						r[i] = <div key={'k' + i}><span className='c1'>Title {i + 1}</span><span className='c2'>Content {i + 1}</span><span className='c3'>{Date().toString()}</span></div>
+					return r
+				})()}</div>
+				<div className='Editor'></div>
+				<div className='menu'>
+					<div className='c1'>
+						<div>
+							<button>Create New</button>
+							<button>Import</button>
+							<button>Export</button>
+							<button onClick={window.close}>Exit</button>
+						</div>
+					</div>
+				</div>
 			</div>
 		)
 	}
