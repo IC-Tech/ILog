@@ -76,6 +76,7 @@ body, a, span, p, textarea {
   margin: 6px auto;
   border: 1px solid #0001;
   padding: 6px;
+  cursor: pointer;
 }
 .Entry > div span {
   display: block;
@@ -83,14 +84,22 @@ body, a, span, p, textarea {
   overflow: hidden;
   line-height: 1;
 }
+.Entry > div span:not(.c2) {
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-serlect: none;
+}
 .Entry > div span.c1 {
   font-size: 16px;
   font-weight: 600;
+  cursor: pointer;
 }
 .Entry > div span.c2 {
   font-size: 14px;
   font-weight: 300;
   height: 28px;
+  cursor: initial;
 }
 .Entry > div span.c3 {
   font-size: 12px;
@@ -191,4 +200,24 @@ body, a, span, p, textarea {
 }
 .Editor textarea:focus {
   border: 2px solid rgb(var(--ic-c-i3));
+}
+.Editor button{
+  border: 0;
+  color: rgb(var(--ic-c-i7));
+  font-weight: 500;
+  background-color: #fff;
+  padding: 6px 12px;
+  margin: 4px;
+  border-radius: 4px;
+  transition-duration: .3s;
+  float: right;
+}
+.Editor button.s1{
+  background-color: #eee;
+}
+.Editor button:hover{
+  background-color: #ddd;
+}
+.Editor button:active{
+  background-color: #ccc;
 }
