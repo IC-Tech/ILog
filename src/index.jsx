@@ -14,6 +14,14 @@ class ILog extends Component {
 	render() {
 		return (
 			<div id='ILog' className='ICApp'>
+				<div className='top-c1'></div>
+				<div className='top'>
+					<div className='c2'><div></div><div></div><div></div></div>
+					<div className='c1'>
+						<span>ILog</span>
+					</div>
+				</div>
+				<div className='Entry'></div>
 			</div>
 		)
 	}
