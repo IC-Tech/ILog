@@ -1,0 +1,7 @@
+/* Copyright © Imesh Chamara 2019 */
+@font-face {
+	font-family:'IC Noto Sans Sinhala';
+	font-style: normal;
+	font-weight:400;
+	src:local('Noto Sans Sinhala Regular'),local('NotoSansSinhala-Regular'), url('./NotoSansSinhala-Regular.woff') format('woff');
+}
