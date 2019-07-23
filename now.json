@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "name":"ILog",
+  "routes": [
+    { "src": "/(.*)", "dest": "dist/$1" }
+  ]
+}
