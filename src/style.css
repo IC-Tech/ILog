@@ -61,7 +61,6 @@ body, a, span, p, textarea {
   line-height: 1;
   font-weight: 500;
 }
-
 .Entry {
   width: 100%;
   display: flex;
@@ -131,4 +130,65 @@ body, a, span, p, textarea {
 }
 .menu button:active {
   background-color: #ddd;
+}
+.Editor {
+  padding: 6px;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.Editor > * {
+  display: block;
+  width: 100%;
+  padding: 4px 0px;
+  height: 26px;
+  box-sizing: border-box;
+}
+.Editor label {
+  display: block;
+}
+.Editor input {
+  border: 0;
+  width: auto;
+  left: 140px;
+  position: absolute;
+  border-bottom: 2px solid #999;
+  min-width: 120px;
+}
+.Editor input:focus {
+  border-bottom: 2px solid rgb(var(--ic-c-i3));
+}
+.Editor .c2 {
+  display: flex;
+  height: 32px;
+}
+.Editor .c2 * {
+  font-size: 17px;
+}
+.Editor .c2 label {
+  font-weight: 500;
+}
+.Editor .c2 input {
+  width: auto;
+  float: right;
+  font-size: 14px;
+  padding: 1px 0;
+  position: absolute;
+  width: calc(100% - 150px);
+}
+.Editor .c1 * {
+  font-size: 14px;
+}
+.Editor textarea {
+  height: 100%;
+  padding: 2px 4px;
+  font-size: 14px;
+  min-height: 200px;
+  border: 2px solid #999;
+  margin-top: 12px;
+  resize: vertical;
+}
+.Editor textarea:focus {
+  border: 2px solid rgb(var(--ic-c-i3));
 }
