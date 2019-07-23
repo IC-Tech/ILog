@@ -1,11 +1,9 @@
-@import url('Themes.css');
-
 html, body, #root, .ICApp {
   margin: 0;
   padding: 0;
   border: 0;
   width: 100%;
-  height: unset;
+  min-height: 100%;
 }
 body, a, span, p, textarea {
   font-family: Roboto, Arial, 'Segoe UI Emoji', -apple-system, BlinkMacSystemFont, Ubuntu, 'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -13,6 +11,8 @@ body, a, span, p, textarea {
 * {
   -webkit-backface-visibility: hidden;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  outline : 0;
+  -moz-outline : 0;
 }
 .top-c1 {
   display: block;
@@ -56,8 +56,79 @@ body, a, span, p, textarea {
 .top div.c1 span {
   color: #fff;
   font-size: 22px;
-  margin: 10px 0;
+  margin: 13px 0;
   display: inline-block;
   line-height: 1;
   font-weight: 500;
+}
+
+.Entry {
+  width: 100%;
+  display: flex;
+  height: auto;
+  flex-direction: column;
+}
+.Entry > div {
+  width: 80%;
+  display: block;
+  height: 54px;
+  box-shadow: 0 2px 5px #0004;
+  border-radius: 6px;
+  margin: 6px auto;
+  border: 1px solid #0001;
+  padding: 6px;
+}
+.Entry > div span {
+  display: block;
+  white-space: pre;
+  overflow: hidden;
+  line-height: 1;
+}
+.Entry > div span.c1 {
+  font-size: 16px;
+  font-weight: 600;
+}
+.Entry > div span.c2 {
+  font-size: 14px;
+  font-weight: 300;
+  height: 28px;
+}
+.Entry > div span.c3 {
+  font-size: 12px;
+}
+.menu, .menu * {
+  transition-duration: .3s;
+}
+.menu {
+  display: none;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background-color: #0009;
+  z-index: 1;
+  position: absolute;
+  height: 100%;
+}
+.menu > div {
+  display: block;
+  height: 100%;
+  width: 90%;
+  background-color: #fff;
+  max-width: 220px;
+}
+.menu button {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  font-size: 18px;
+  padding: 12px 0;
+  line-height: 1;
+  background-color: #fff;
+  cursor: pointer;
+}
+.menu button:hover {
+  background-color: #eee;
+}
+.menu button:active {
+  background-color: #ddd;
 }
