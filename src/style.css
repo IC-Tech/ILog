@@ -1,1 +1,63 @@
 @import url('Themes.css');
+
+html, body, #root, .ICApp {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 100%;
+  height: unset;
+}
+body, a, span, p, textarea {
+  font-family: Roboto, Arial, 'Segoe UI Emoji', -apple-system, BlinkMacSystemFont, Ubuntu, 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+* {
+  -webkit-backface-visibility: hidden;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.top-c1 {
+  display: block;
+  height: 54px;
+}
+.top {
+  display: block;
+  width: 100%;
+}
+.top {
+  height: 48px;
+  position: absolute;
+  top: 0;
+  background-color: rgb(var(--ic-c-i7));
+  box-sizing: border-box;
+  box-shadow: 0 0 8px #0008;
+  display: flex;
+  flex-direction: row;
+}
+.top > div {
+  display: inline-block;
+}
+.top div.c2 {
+  display: inline-flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  width: auto;
+  margin-right: 20px;
+  cursor: pointer;
+  padding: 0 14px;
+}
+.top div.c2 div {
+  content: '';
+  width: 24px;
+  display: inline-block;
+  height: 2px;
+  background-color: #fff;
+  margin: 2px 0;
+}
+.top div.c1 span {
+  color: #fff;
+  font-size: 22px;
+  margin: 10px 0;
+  display: inline-block;
+  line-height: 1;
+  font-weight: 500;
+}
