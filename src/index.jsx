@@ -48,6 +48,9 @@ class ILog extends Component {
   }
   SetMent(v) {
   	document.querySelector('html').style.overflow = v == true ? 'hidden' : 'unset'
+  	document.querySelector('body').style.overflow = v == true ? 'hidden' : 'unset'
+  	document.querySelector('body').style.height = v == true ? '100%' : 'auto'
+  	document.querySelector('html').style.height = v == true ? '100%' : 'auto'
   	document.querySelector('.menu').style.display = v == true ? 'block' : 'none'
   	this.backAction = v ? (() => this.SetMent(0)) : null
   }
