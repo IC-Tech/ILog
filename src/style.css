@@ -130,7 +130,7 @@ body, a, span, p, textarea {
        -o-transition-duration: .3s;
           transition-duration: .3s;
 }
-.menu {
+.menu, .dialog {
   display: none;
   left: 0;
   top: 0;
@@ -233,7 +233,7 @@ body, a, span, p, textarea {
 .Editor textarea:focus {
   border: 2px solid rgb(var(--ic-c-i3));
 }
-.Editor button {
+.Editor button, .dialog button {
   border: 0;
   color: rgb(var(--ic-c-i7));
   font-weight: 500;
@@ -246,12 +246,53 @@ body, a, span, p, textarea {
           transition-duration: .3s;
   float: right;
 }
-.Editor button.s1 {
+.Editor button.c1, .dialog button.c1 {
   background-color: #eee;
 }
-.Editor button:hover {
+.Editor button:hover, .dialog button:hover {
   background-color: #ddd;
 }
-.Editor button:active {
+.Editor button:active, .dialog button:active {
   background-color: #ccc;
+}
+.dialog {
+  flex-direction: column;
+  justify-content: center;
+}
+.dialog > div {
+  width: 90%;
+  min-height: 100px;
+  background-color: #fff;
+  margin: 0 auto;
+  border-radius: 4px;
+  box-shadow: 0 0 6px #0004;
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  box-sizing: border-box;
+  height: auto;
+  min-width: 240px;
+  max-width: 320px;
+}
+.dialog > div > * {
+  line-height: 1;
+  display: block;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+.dialog > div span:not(.c1) {
+  font-size: 14px;
+  padding: 6px 0;
+  max-height: 120px;
+  overflow-y: auto;
+}
+.dialog > div span.c1 {
+  font-size: 16px;
+  font-weight: 500;
+}
+.dialog > div > div {
+  margin-top: auto;
+}
+.dialog.show {
+  display: flex;
 }
