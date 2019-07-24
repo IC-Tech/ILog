@@ -18,6 +18,44 @@ var Data = [
 		content: 'The Content 002.'
 	}
 ]
+/*Based on Project 201905271231 src/client/Dialog.js*/
+const Dialog = {
+	create: (id, title, content, buttons, call) => {
+		if(isNaN(id)) for(id = 0; document.getElementById(`IC-Dialog-${id}`) != null && id < 1000; id++);
+		var e = document.createElement('div')
+		var e2 = document.createElement('span')
+		e2.classList.add('c1')
+		e2.innerText = title
+		e.appendChild(e2)
+		e2 = document.createElement('span')
+		e2.innerText = content
+		e.appendChild(e2)
+		e2 = document.createElement('div')
+		Array.from(buttons).forEach((b, i) => {
+			var e3 = document.createElement('button')
+			e3.innerText = b
+			if(i == 0)
+				e3.classList.add('c1')
+			e3.addEventListener('click', () => call(id, i))
+			e2.appendChild(e3)
+		})
+		e.appendChild(e2)
+		e2 = document.createElement('div')
+		e2.id = `IC-Dialog-${id}`
+		e2.classList.add('dialog')
+		e2.addEventListener('click', e => {
+			if(e.target.id == `IC-Dialog-${id}`) call(id, 'cancel')
+		})
+		e2.appendChild(e)
+		document.querySelector('.ICApp').appendChild(e2)
+		return id
+	},
+	Visibility: (id, v) => {
+		if(v == true) document.querySelector('#IC-Dialog-' + id).classList.add('show')
+		else document.querySelector('#IC-Dialog-' + id).classList.remove('show')
+	},
+	remove: (id) => document.querySelector('#IC-Dialog-' + id).remove()
+}
 
 class ILog extends Component {
 	constructor(props) {
@@ -69,13 +107,19 @@ class ILog extends Component {
   	this.i = i
   }
   EditActon(v) {
-  	if(v == 1)
-	  	Data[this.i == -1 ? Data.length : this.i] = {
+  	if(v == 1) {
+  		v = {
 	  		name: document.querySelector('#i1').value,
 	  		timeC: Date.parse(document.querySelector('#i2').value + ' ' + document.querySelector('#i3').value),
 	  		timeM: Date.parse(document.querySelector('#i4').value + ' ' + document.querySelector('#i5').value),
 	  		content: document.querySelector('#i6').value
 	  	}
+	  	if(v.name == '') {
+				Dialog.Visibility(Dialog.create(NaN, 'Save Entry', 'Please add a name for this entry.', ['OK'], (i, b) => Dialog.remove(i)), true)
+				return
+	  	}
+	  	Data[this.i == -1 ? Data.length : this.i] = v
+	  }
   	this.setState({UI: 0})
   }
 	render() {
@@ -110,15 +154,15 @@ class ILog extends Component {
 					<textarea id='i6'></textarea>
 					<div>
 						<button onClick={() => this.EditActon(0)}>CANCEL</button>
-						<button onClick={() => this.EditActon(1)} className='s1'>SAVE</button>
+						<button onClick={() => this.EditActon(1)} className='c1'>SAVE</button>
 					</div>
 				</div>
 				<div className='menu'>
 					<div className='c1'>
 						<div>
 							<button onClick={e => this.EditCall(-1, e)}>Create New</button>
-							<button>Import</button>
-							<button>Export</button>
+							<button onClick={e => Dialog.Visibility(Dialog.create(NaN, 'Error', 'Unable to start the action.', ['OK'], (i, b) => Dialog.remove(i)), true)}>Import</button>
+							<button onClick={e => Dialog.Visibility(Dialog.create(NaN, 'Error', 'Unable to start the action.', ['OK'], (i, b) => Dialog.remove(i)), true)}>Export</button>
 							<button onClick={window.close}>Exit</button>
 						</div>
 					</div>
