@@ -4,20 +4,9 @@ import ReactDOM from 'react-dom'
 import './style.css'
 import './Themes.css'
 
-var Data = [
-	{
-		name: 'Title 01',
-		timeC: 1563895945931,
-		timeM: 1563895970135,
-		content: 'The Content 001.'
-	},
-	{
-		name: 'Title 02',
-		timeC: 1563895945931,
-		timeM: 1563895970135,
-		content: 'The Content 002.'
-	}
-]
+var Data = localStorage.getItem('IC-Tech.ILog-Data')
+Data = Data != null && Data != undefined ? JSON.parse(Data) : []
+
 /*Based on Project 201905271231 src/client/Dialog.js*/
 const Dialog = {
 	create: (id, title, content, buttons, call) => {
@@ -57,15 +46,33 @@ const Dialog = {
 	remove: (id) => document.querySelector('#IC-Dialog-' + id).remove()
 }
 
+/*From Project 201905141045[DOM Ver.]*/
+const getTimeCode = () => {
+    var _d = Date.now()
+    var d = new Date(_d)
+    d.setMonth(d.getMonth() + 1)
+    var v = (d.getFullYear().toString() + (d.getMonth() < 10 ? '0' : '') + d.getMonth().toString() + (d.getDate() < 10 ? '0' : '') + d.getDate().toString()),
+    v1 = v + (d.getHours() < 10 ? '0' : '') + d.getHours().toString() + (d.getMinutes() < 10 ? '0' : '') + d.getMinutes().toString()
+    return {
+        v0: v,
+        v1: v1,
+        v2: v1 + (d.getSeconds() < 10 ? '0' : '') + d.getSeconds().toString() + (d.getMilliseconds() >= 100 ? '' : (d.getMilliseconds() >= 10 ? '0' : '00')) + d.getMilliseconds().toString(),
+        v3: new Date(_d).toString()
+    }
+}
+
 class ILog extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			UI: 0
+			UI: 0,
+			latestUpdate: 0
 		}
 		this.SetMent = this.SetMent.bind(this)
 		this.EditCall = this.EditCall.bind(this)
 		this.EditActon = this.EditActon.bind(this)
+		this.Export = this.Export.bind(this)
+		this.Import = this.Import.bind(this)
 		this.backAction = null
 		this.i = -1
 	}
@@ -81,29 +88,30 @@ class ILog extends Component {
 			if(e.key == 'Escape') a()
 		})
 		document.querySelector('.menu').addEventListener('click', e => {
-			if(e.target.classList.contains('menu')) this.SetMent(0)
+			if(e.target.classList.contains('menu')) this.SetMent()
 		})
   }
   SetMent(v) {
-  	document.querySelector('html').style.overflow = v == true ? 'hidden' : 'unset'
-  	document.querySelector('body').style.overflow = v == true ? 'hidden' : 'unset'
-  	document.querySelector('body').style.height = v == true ? '100%' : 'auto'
-  	document.querySelector('html').style.height = v == true ? '100%' : 'auto'
-  	document.querySelector('.menu').style.display = v == true ? 'block' : 'none'
-  	this.backAction = v ? (() => this.SetMent(0)) : null
+  	document.querySelector('html').style.overflow = v ? 'hidden' : 'unset'
+  	document.querySelector('body').style.overflow = v ? 'hidden' : 'unset'
+  	document.querySelector('body').style.height = v ? '100%' : 'auto'
+  	document.querySelector('html').style.height = v ? '100%' : 'auto'
+  	document.querySelector('.menu').style.display = v ? 'block' : 'none'
+  	this.backAction = v ? (() => this.SetMent()) : null
   }
   EditCall(i, e) {
   	const c = a => a.toString().length == 1 ? '0' + a : a.toString()
   	const a = a => `${a.getFullYear()}-${c(a.getMonth() + 1)}-${c(a.getDate())}`
   	const b = a => `${c(a.getHours())}:${c(a.getMinutes())}`
-		document.querySelector('#i1').value = i == -1 ? '' : Data[i].name
+		document.querySelector('#i1').value = i == -1 ? getTimeCode().v1 : Data[i].name
 		document.querySelector('#i2').value = a(new Date(i == -1 ? Date.now() : Data[i].timeC))
 		document.querySelector('#i3').value = b(new Date(i == -1 ? Date.now() : Data[i].timeC))
 		document.querySelector('#i4').value = a(new Date(i == -1 ? Date.now() : Data[i].timeM))
 		document.querySelector('#i5').value = b(new Date(i == -1 ? Date.now() : Data[i].timeM))
 		document.querySelector('#i6').value = i == -1 ? '' : Data[i].content
+		document.querySelector('#i7').style.display = i == -1 ? 'none' : 'inline-block'
   	this.setState({UI: 1})
-  	this.SetMent(false)
+  	this.SetMent()
   	this.i = i
   }
   EditActon(v) {
@@ -119,8 +127,54 @@ class ILog extends Component {
 				return
 	  	}
 	  	Data[this.i == -1 ? Data.length : this.i] = v
+	  	localStorage.setItem('IC-Tech.ILog-Data', JSON.stringify(Data))
+	  }
+	  else if(v == 2) {
+	  	Dialog.Visibility(Dialog.create(NaN, 'Delete Entry', 'Are you sure you want to delete this entry. Remember by any chance this action can not be undone.', ['CANCEL', 'OK'], (i, b) => {
+	  		if(b == 1) {
+			  	Data.splice(this.i, 1)
+			  	localStorage.setItem('IC-Tech.ILog-Data', JSON.stringify(Data))
+	  		}
+	  		this.setState({UI: 0})
+			  Dialog.remove(i)
+	  	}), true)
+	  	return
 	  }
   	this.setState({UI: 0})
+  }
+  Export() {
+		var a = document.createElement('a')
+    a.href = URL.createObjectURL(new Blob([JSON.stringify({ILog: {Data: Data}})], {type: 'application/json'}))
+		a.download = "IC-Tech.ILog." + getTimeCode().v1 + '.json'
+    a.style.display = 'none'
+    document.body.appendChild(a)
+    a.click()
+  }
+  Import(e) {
+  	var a = e.target.files[0]
+  	if(!a) return
+	  var b = new FileReader()
+	  b.onload = e => {
+	  	try {
+		  	var c = JSON.parse(e.target.result)
+		  	if(!c || !c.ILog || !c.ILog.Data) return
+		  	Data = c.ILog.Data
+	  		localStorage.setItem('IC-Tech.ILog-Data', JSON.stringify(Data))
+		  }
+		  catch (e) {
+		    Dialog.Visibility(Dialog.create(NaN, 'Error', 'The file could not be read.', ['OK'], (i, b) => Dialog.remove(i)), true)
+		  	console.error(e)
+		  }
+			this.setState({latestUpdate: Date.now()})
+			this.SetMent()
+		}
+	  b.onerror = e => {
+		  if(evt.target.error.name == "NotReadableError") {
+		    Dialog.Visibility(Dialog.create(NaN, 'Error', 'The file could not be read.', ['OK'], (i, b) => Dialog.remove(i)), true)
+		  }
+		  else console.error(e)
+		}
+	  b.readAsText(a)
   }
 	render() {
 		return (
@@ -154,6 +208,7 @@ class ILog extends Component {
 					<textarea id='i6'></textarea>
 					<div>
 						<button onClick={() => this.EditActon(0)}>CANCEL</button>
+						<button id='i7' onClick={() => this.EditActon(2)}>DELETE</button>
 						<button onClick={() => this.EditActon(1)} className='c1'>SAVE</button>
 					</div>
 				</div>
@@ -161,8 +216,10 @@ class ILog extends Component {
 					<div className='c1'>
 						<div>
 							<button onClick={e => this.EditCall(-1, e)}>Create New</button>
-							<button onClick={e => Dialog.Visibility(Dialog.create(NaN, 'Error', 'Unable to start the action.', ['OK'], (i, b) => Dialog.remove(i)), true)}>Import</button>
-							<button onClick={e => Dialog.Visibility(Dialog.create(NaN, 'Error', 'Unable to start the action.', ['OK'], (i, b) => Dialog.remove(i)), true)}>Export</button>
+							<input type='file' id='i8' onChange={this.Import}/>
+							<label htmlFor='i8'>Import</label>
+							<button onClick={e => this.Export()}>Export</button>
+							<a href='http://ic-tech.dx.am/html/About.html'>Contact</a>
 							<button onClick={window.close}>Exit</button>
 						</div>
 					</div>
