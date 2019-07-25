@@ -241,7 +241,7 @@ body, a, span, p, textarea {
 .Editor textarea:focus {
   border: 2px solid rgb(var(--ic-c-i3));
 }
-.Editor button, .dialog button {
+.ic-btn0 {
   border: 0;
   color: rgb(var(--ic-c-i7));
   font-weight: 500;
@@ -254,13 +254,13 @@ body, a, span, p, textarea {
           transition-duration: .3s;
   float: right;
 }
-.Editor button.c1, .dialog button.c1 {
+.ic-btn0.c1, .ic-btn0.c1 {
   background-color: #eee;
 }
-.Editor button:hover, .dialog button:hover {
+.ic-btn0:hover, .ic-btn0:hover {
   background-color: #ddd;
 }
-.Editor button:active, .dialog button:active {
+.ic-btn0:active, .ic-btn0:active {
   background-color: #ccc;
 }
 .dialog {
@@ -316,4 +316,59 @@ body, a, span, p, textarea {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+.Settings > span {
+  font-size: 17px;
+  text-align: center;
+}
+.Settings {
+  flex-direction: column;
+  padding: 0 4px;
+}
+.Settings > .c1 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.Settings > .c1 > * {
+  display: inline-block;
+  background-color: #ccc;
+  width: 34px;
+  height: 34px;
+  margin: 4px;
+  box-sizing: border-box;
+  border: 2px solid #444;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 0px 4px #0004;
+}
+.Settings > .c1 .c0 {
+  background-color: rgb(244, 67, 54);
+}
+.Settings > .c1 .c1 {
+  background-color: rgb(233, 30, 99);
+}
+.Settings > .c1 .c2 {
+  background-color: rgb(156, 39, 176);
+}
+.Settings > .c1 .c3 {
+  background-color: rgb(63, 81, 181);
+}
+.Settings > .c1 .c4 {
+  background-color: rgb(33, 150, 243);
+}
+.Settings > .c1 .c5 {
+  background-color: rgb(0, 150, 136);
+}
+.Settings > .c1 .c6 {
+  background-color: rgb(255, 193, 7);
+}
+.Settings > .c1 .c7 {
+  background-color: rgb(255, 87, 34);
+}
+.Settings > .c1 .c8 {
+  background-color: rgb(76, 175, 80);
+}
+.Settings > .c1 .c9 {
+  background-color: rgb(158,158,158);
 }
