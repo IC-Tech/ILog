@@ -147,7 +147,8 @@ body, a, span, p, textarea {
   background-color: #fff;
   max-width: 220px;
 }
-.menu button {
+.menu .c1 > div > * {
+  display: block;
   width: 100%;
   margin: 0;
   border: 0;
@@ -156,12 +157,19 @@ body, a, span, p, textarea {
   line-height: 1;
   background-color: #fff;
   cursor: pointer;
+  text-align: center;
+  font-weight: 400;
+  color: #000;
+  text-decoration: none;
 }
-.menu button:hover {
+.menu .c1 > div > *:hover {
   background-color: #eee;
 }
-.menu button:active {
+.menu .c1 > div > *:active {
   background-color: #ddd;
+}
+.menu input {
+  display: none !important;
 }
 .Editor {
   padding: 6px;
@@ -256,8 +264,13 @@ body, a, span, p, textarea {
   background-color: #ccc;
 }
 .dialog {
-  flex-direction: column;
-  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 .dialog > div {
   width: 90%;
@@ -265,11 +278,18 @@ body, a, span, p, textarea {
   background-color: #fff;
   margin: 0 auto;
   border-radius: 4px;
-  box-shadow: 0 0 6px #0004;
+  -webkit-box-shadow: 0 0 6px #0004;
+          box-shadow: 0 0 6px #0004;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   padding: 6px;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   height: auto;
   min-width: 240px;
   max-width: 320px;
@@ -277,8 +297,7 @@ body, a, span, p, textarea {
 .dialog > div > * {
   line-height: 1;
   display: block;
-  word-break: break-all;
-  word-wrap: break-word;
+  word-break: break-word;
 }
 .dialog > div span:not(.c1) {
   font-size: 14px;
@@ -294,5 +313,7 @@ body, a, span, p, textarea {
   margin-top: auto;
 }
 .dialog.show {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
