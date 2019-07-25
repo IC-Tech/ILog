@@ -5,7 +5,7 @@ import './style.css'
 import './Themes.css'
 import _IC_Common from './IC.Common.js';
 const IC_Common = _IC_Common.IC_Common;
-const ColorThemes = [ 'red','pink','purple','indeigo','blue','teal','yellow','orange','green','black' ]
+const ColorThemes = [ 'red', 'pink', 'purple', 'indeigo', 'blue', 'teal', 'yellow', 'orange', 'green', 'black' ]
 
 var Data = localStorage.getItem('IC-Tech.ILog-Data')
 Data = Data != null && Data != undefined ? JSON.parse(Data) : []
