@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import './style.css'
 import './Themes.css'
+import _IC_Common from './IC.Common.js';
+const IC_Common = _IC_Common.IC_Common;
 
 var Data = localStorage.getItem('IC-Tech.ILog-Data')
 Data = Data != null && Data != undefined ? JSON.parse(Data) : []
@@ -60,6 +62,34 @@ const getTimeCode = () => {
         v2: v1 + (d.getSeconds() < 10 ? '0' : '') + d.getSeconds().toString() + (d.getMilliseconds() >= 100 ? '' : (d.getMilliseconds() >= 10 ? '0' : '00')) + d.getMilliseconds().toString(),
         v3: new Date(_d).toString()
     }
+}
+
+/*From Project 201905271231 src/client/MessageUI.js*/
+const ICApp = {
+	set ColorTheme(color) {
+		const ColorThemes = [ 'red','pink','purple','indeigo','blue','teal','yellow','orange','green','black' ]
+		var _root = document.querySelector('#root')
+		_root.classList.remove(...ColorThemes)
+		var v = IC_Common.arrayReciver(color, ColorThemes)
+		if(v == -1) v = 0;
+		_root.classList.add(ColorThemes[v])
+		var col = getComputedStyle(document.querySelector('#root')).getPropertyValue('--ic-c-i4').replace(' ', '').replace(' ', '').replace(' ', '')
+		var i = 0, a = '', b = '#'
+		a = parseInt(col.substring(0, i = col.indexOf(','))).toString(16)
+		if(a.length < 1) a = '0' + a
+		b = '#' + a
+		col = col.substring(i + 1, col.length)
+		a = parseInt(col.substring(0, i = col.indexOf(','))).toString(16)
+		if(a.length < 1) a = '0' + a
+		b += a
+		col = col.substring(i + 1, col.length)
+		a = parseInt(col).toString(16)
+		if(a.length < 1) a = '0' + a
+		b += a
+		document.querySelector('[name=theme-color]').setAttribute('content', b)
+		document.querySelector('[name=msapplication-navbutton-color]').setAttribute('content', b)
+		document.querySelector('[name=apple-mobile-web-app-status-bar-style]').setAttribute('content', b)
+	}
 }
 
 class ILog extends Component {
@@ -254,9 +284,11 @@ class ILog extends Component {
 }
 
 var e = document.getElementById('root')
-e.classList.add('purple')
+/*e.classList.add('purple')
 document.querySelector('[name=theme-color]').setAttribute('content', '#8e24aa')
 document.querySelector('[name=msapplication-navbutton-color]').setAttribute('content', '#8e24aa')
 document.querySelector('[name=apple-mobile-web-app-status-bar-style]').setAttribute('content', '#8e24aa')
+*/
+ICApp.ColorTheme = 'red'
 console.info('\n██╗ ██████╗      ████████╗███████╗ ██████╗██╗  ██╗\n██║██╔════╝      ╚══██╔══╝██╔════╝██╔════╝██║  ██║\n██║██║     █████╗   ██║   █████╗  ██║     ███████║\n██║██║     ╚════╝   ██║   ██╔══╝  ██║     ██╔══██║\n██║╚██████╗         ██║   ███████╗╚██████╗██║  ██║\n╚═╝ ╚═════╝         ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═╝\n        IC-Tech; Imesh Chamara (C) 2019;          \n')
 setTimeout(() => ReactDOM.render(<ILog />, e), 1000)
