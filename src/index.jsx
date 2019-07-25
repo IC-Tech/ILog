@@ -23,6 +23,7 @@ const Dialog = {
 		Array.from(buttons).forEach((b, i) => {
 			var e3 = document.createElement('button')
 			e3.innerText = b
+			e3.classList.add('ic-btn0')
 			if(i == 0)
 				e3.classList.add('c1')
 			e3.addEventListener('click', () => call(id, i))
@@ -176,6 +177,14 @@ class ILog extends Component {
 		}
 	  b.readAsText(a)
   }
+  SettingsAction(a, b) {
+  	if(a == 1 || a == 0) {
+  		this.setState({UI: a == 0 ? 0 : 2})
+  		this.SetMent()
+  	}
+  	else if(a == 2) {
+  	}
+  }
 	render() {
 		return (
 			<div id='ILog' className='ICApp'>
@@ -187,7 +196,7 @@ class ILog extends Component {
 					</div>
 				</div>
 				<div className='Entry' style={{display: this.state.UI == 0 ? 'flex' : 'none'}}>{
-					Data.map((v, i) => <div key={'k' + i + v.timeC} onClick={(e) => this.EditCall(i, e)}><span className='c1'>{v.name}</span><span className='c2'>{v.content}</span><span className='c3'>{new Date(v.timeM).toString()}</span></div>)
+					Data.map((v, i) => <div key={'k0' + i + v.timeC} onClick={(e) => this.EditCall(i, e)}><span className='c1'>{v.name}</span><span className='c2'>{v.content}</span><span className='c3'>{new Date(v.timeM).toString()}</span></div>)
 				}</div>
 				<div className='Editor' style={{display: this.state.UI == 1 ? 'flex' : 'none'}}>
 					<div className='c2'>
@@ -207,9 +216,23 @@ class ILog extends Component {
 					</div>
 					<textarea id='i6'></textarea>
 					<div>
-						<button onClick={() => this.EditActon(0)}>CANCEL</button>
-						<button id='i7' onClick={() => this.EditActon(2)}>DELETE</button>
-						<button onClick={() => this.EditActon(1)} className='c1'>SAVE</button>
+						<button className='ic-btn0' onClick={() => this.EditActon(0)}>CANCEL</button>
+						<button className='ic-btn0' onClick={() => this.EditActon(2)} id='i7' >DELETE</button>
+						<button className='ic-btn0 c1' onClick={() => this.EditActon(1)}>SAVE</button>
+					</div>
+				</div>
+				<div className='Settings' style={{display: this.state.UI == 2 ? 'flex' : 'none'}}>
+					<span>Theme</span>
+					<div className='c1'>{
+						(()=>{
+							var b = []
+							for(var a=0; a<10; a++)
+								b[a] = <div key={'k1' + a} className={'c' + a} onClick={e => this.SettingsAction(2, a)}></div>
+							return b
+						})()
+					}</div>
+					<div>
+						<button onClick={() => this.SettingsAction(0)} className='ic-btn0 c1'>CLOSE</button>
 					</div>
 				</div>
 				<div className='menu'>
@@ -220,6 +243,7 @@ class ILog extends Component {
 							<label htmlFor='i8'>Import</label>
 							<button onClick={e => this.Export()}>Export</button>
 							<a href='http://ic-tech.dx.am/html/About.html'>Contact</a>
+							<button onClick={e => this.SettingsAction(1)}>Settings</button>
 							<button onClick={window.close}>Exit</button>
 						</div>
 					</div>
