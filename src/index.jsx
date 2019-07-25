@@ -230,7 +230,7 @@ class ILog extends Component {
 					</div>
 				</div>
 				<div className='Entry' style={{display: this.state.UI == 0 ? 'flex' : 'none'}}>{
-					Data.reverse().map((v, i) => <div key={'k0' + i + v.timeC} onClick={(e) => this.EditCall(i, e)}><span className='c1'>{v.name}</span><span className='c2'>{v.content}</span><span className='c3'>{new Date(v.timeM).toString()}</span></div>)
+					Data.slice().reverse().map((v, i) => <div key={'k0' + i + v.timeC} onClick={(e) => this.EditCall(i, e)}><span className='c1'>{v.name}</span><span className='c2'>{v.content}</span><span className='c3'>{new Date(v.timeM).toString()}</span></div>)
 				}</div>
 				<div className='Editor' style={{display: this.state.UI == 1 ? 'flex' : 'none'}}>
 					<div className='c2'>
