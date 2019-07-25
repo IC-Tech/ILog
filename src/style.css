@@ -29,8 +29,8 @@ body, a, span, p, textarea {
   background-color: rgb(var(--ic-c-i7));
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  -webkit-box-shadow: 0 0 8px #0008;
-          box-shadow: 0 0 8px #0008;
+  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -64,11 +64,11 @@ body, a, span, p, textarea {
   width: 24px;
   display: inline-block;
   height: 2px;
-  background-color: #fff;
+  background-color: rgb(255, 255, 255);
   margin: 2px 0;
 }
 .top div.c1 span {
-  color: #fff;
+  color: rgb(255, 255, 255);
   font-size: 22px;
   margin: 13px 0;
   display: inline-block;
@@ -90,11 +90,11 @@ body, a, span, p, textarea {
   width: 80%;
   display: block;
   height: 54px;
-  -webkit-box-shadow: 0 2px 5px #0004;
-          box-shadow: 0 2px 5px #0004;
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   border-radius: 6px;
   margin: 6px auto;
-  border: 1px solid #0001;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 6px;
   cursor: pointer;
 }
@@ -135,7 +135,7 @@ body, a, span, p, textarea {
   left: 0;
   top: 0;
   width: 100%;
-  background-color: #0009;
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 1;
   position: absolute;
   height: 100%;
@@ -144,7 +144,7 @@ body, a, span, p, textarea {
   display: block;
   height: 100%;
   width: 90%;
-  background-color: #fff;
+  background-color: rgb(255, 255, 255);
   max-width: 220px;
 }
 .menu .c1 > div > * {
@@ -155,18 +155,18 @@ body, a, span, p, textarea {
   font-size: 18px;
   padding: 12px 0;
   line-height: 1;
-  background-color: #fff;
+  background-color: rgb(255, 255, 255);
   cursor: pointer;
   text-align: center;
   font-weight: 400;
-  color: #000;
+  color: rgb(0, 0, 0);
   text-decoration: none;
 }
 .menu .c1 > div > *:hover {
-  background-color: #eee;
+  background-color: rgb(238, 238, 238);
 }
 .menu .c1 > div > *:active {
-  background-color: #ddd;
+  background-color: rgb(221, 221, 221);
 }
 .menu input {
   display: none !important;
@@ -200,7 +200,7 @@ body, a, span, p, textarea {
   width: auto;
   left: 140px;
   position: absolute;
-  border-bottom: 2px solid #999;
+  border-bottom: 2px solid rgb(153, 153, 153);
   min-width: 120px;
 }
 .Editor input:focus {
@@ -234,7 +234,7 @@ body, a, span, p, textarea {
   padding: 2px 4px;
   font-size: 14px;
   min-height: 200px;
-  border: 2px solid #999;
+  border: 2px solid rgb(153, 153, 153);
   margin-top: 12px;
   resize: vertical;
 }
@@ -245,7 +245,7 @@ body, a, span, p, textarea {
   border: 0;
   color: rgb(var(--ic-c-i7));
   font-weight: 500;
-  background-color: #fff;
+  background-color: rgb(255, 255, 255);
   padding: 6px 12px;
   margin: 4px;
   border-radius: 4px;
@@ -255,13 +255,13 @@ body, a, span, p, textarea {
   float: right;
 }
 .ic-btn0.c1, .ic-btn0.c1 {
-  background-color: #eee;
+  background-color: rgb(238, 238, 238);
 }
 .ic-btn0:hover, .ic-btn0:hover {
-  background-color: #ddd;
+  background-color: rgb(221, 221, 221);
 }
 .ic-btn0:active, .ic-btn0:active {
-  background-color: #ccc;
+  background-color: rgb(204, 204, 204);
 }
 .dialog {
   -webkit-box-orient: vertical;
@@ -275,11 +275,11 @@ body, a, span, p, textarea {
 .dialog > div {
   width: 90%;
   min-height: 100px;
-  background-color: #fff;
+  background-color: rgb(255, 255, 255);
   margin: 0 auto;
   border-radius: 4px;
-  -webkit-box-shadow: 0 0 6px #0004;
-          box-shadow: 0 0 6px #0004;
+  -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -322,25 +322,35 @@ body, a, span, p, textarea {
   text-align: center;
 }
 .Settings {
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   padding: 0 4px;
 }
 .Settings > .c1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 .Settings > .c1 > * {
   display: inline-block;
-  background-color: #ccc;
+  background-color: rgb(204, 204, 204);
   width: 34px;
   height: 34px;
   margin: 4px;
-  box-sizing: border-box;
-  border: 2px solid #444;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border: 2px solid rgb(68, 68, 68);
   border-radius: 6px;
   cursor: pointer;
-  box-shadow: 0 0px 4px #0004;
+  -webkit-box-shadow: 0 0px 4px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 0px 4px rgba(0, 0, 0, 0.3);
 }
 .Settings > .c1 .c0 {
   background-color: rgb(244, 67, 54);
