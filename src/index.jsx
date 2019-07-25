@@ -5,6 +5,7 @@ import './style.css'
 import './Themes.css'
 import _IC_Common from './IC.Common.js';
 const IC_Common = _IC_Common.IC_Common;
+const ColorThemes = [ 'red','pink','purple','indeigo','blue','teal','yellow','orange','green','black' ]
 
 var Data = localStorage.getItem('IC-Tech.ILog-Data')
 Data = Data != null && Data != undefined ? JSON.parse(Data) : []
@@ -67,7 +68,6 @@ const getTimeCode = () => {
 /*From Project 201905271231 src/client/MessageUI.js*/
 const ICApp = {
 	set ColorTheme(color) {
-		const ColorThemes = [ 'red','pink','purple','indeigo','blue','teal','yellow','orange','green','black' ]
 		var _root = document.querySelector('#root')
 		_root.classList.remove(...ColorThemes)
 		var v = IC_Common.arrayReciver(color, ColorThemes)
@@ -213,6 +213,9 @@ class ILog extends Component {
   		this.SetMent()
   	}
   	else if(a == 2) {
+  		var c = ColorThemes[parseInt(b.target.dataset.a)]
+  		localStorage.setItem('IC-Tech.ILog-Theme', c)
+  		ICApp.ColorTheme = c
   	}
   }
 	render() {
@@ -257,7 +260,7 @@ class ILog extends Component {
 						(()=>{
 							var b = []
 							for(var a=0; a<10; a++)
-								b[a] = <div key={'k1' + a} className={'c' + a} onClick={e => this.SettingsAction(2, a)}></div>
+								b[a] = <div key={'k1' + a} data-a={a} className={'c' + a} onClick={e => this.SettingsAction(2, e)}></div>
 							return b
 						})()
 					}</div>
@@ -283,12 +286,7 @@ class ILog extends Component {
 	}
 }
 
-var e = document.getElementById('root')
-/*e.classList.add('purple')
-document.querySelector('[name=theme-color]').setAttribute('content', '#8e24aa')
-document.querySelector('[name=msapplication-navbutton-color]').setAttribute('content', '#8e24aa')
-document.querySelector('[name=apple-mobile-web-app-status-bar-style]').setAttribute('content', '#8e24aa')
-*/
-ICApp.ColorTheme = 'red'
+var a = localStorage.getItem('IC-Tech.ILog-Theme')
+ICApp.ColorTheme = a == null ? 'red' : a
 console.info('\n██╗ ██████╗      ████████╗███████╗ ██████╗██╗  ██╗\n██║██╔════╝      ╚══██╔══╝██╔════╝██╔════╝██║  ██║\n██║██║     █████╗   ██║   █████╗  ██║     ███████║\n██║██║     ╚════╝   ██║   ██╔══╝  ██║     ██╔══██║\n██║╚██████╗         ██║   ███████╗╚██████╗██║  ██║\n╚═╝ ╚═════╝         ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═╝\n        IC-Tech; Imesh Chamara (C) 2019;          \n')
-setTimeout(() => ReactDOM.render(<ILog />, e), 1000)
+setTimeout(() => ReactDOM.render(<ILog />, document.getElementById('root')), 1000)
