@@ -131,6 +131,7 @@ class ILog extends Component {
   	this.backAction = v ? (() => this.SetMent()) : null
   }
   EditCall(i, e) {
+  	i = i == -1 ? -1 : (Data.length - 1) - i
   	const c = a => a.toString().length == 1 ? '0' + a : a.toString()
   	const a = a => `${a.getFullYear()}-${c(a.getMonth() + 1)}-${c(a.getDate())}`
   	const b = a => `${c(a.getHours())}:${c(a.getMinutes())}`
