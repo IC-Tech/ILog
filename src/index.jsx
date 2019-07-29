@@ -151,7 +151,7 @@ class ILog extends Component {
   		v = {
 	  		name: document.querySelector('#i1').value,
 	  		timeC: Date.parse(document.querySelector('#i2').value + ' ' + document.querySelector('#i3').value),
-	  		timeM: Date.parse(document.querySelector('#i4').value + ' ' + document.querySelector('#i5').value),
+	  		timeM: Date.now(),
 	  		content: document.querySelector('#i6').value
 	  	}
 	  	if(v.name == '') {
