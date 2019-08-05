@@ -1,6 +1,7 @@
 {
-    "name": "ILog",
     "short_name": "ILog",
+    "name": "IC-Tech ILog",
+    "start_url": ".",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
@@ -13,6 +14,7 @@
             "type": "image/png"
         }
     ],
+    "description": "ILog by Imesh Chamara 2019",
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
     "display": "standalone"
