@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --mode production --config webpack.config.pro.js",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot --config webpack.config.dev.js",
-    "start": "\"npm run client\""
+    "start": "serve dist"
   },
   "author": "Imesh Chamara",
   "license": "ISC",
@@ -21,7 +21,8 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "serve": "^11.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
