@@ -53,6 +53,12 @@ module.exports = {
         to: './',
         flatten: true
       }
+    ]),
+    new CopyPlugin([
+      {
+        from: './src/sw.js',
+        to: './sw.js'
+      }
     ])
   ]
 };
