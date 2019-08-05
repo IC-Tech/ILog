@@ -10,6 +10,8 @@ const ColorThemes = [ 'red', 'pink', 'purple', 'indeigo', 'blue', 'teal', 'yello
 var Data = localStorage.getItem('IC-Tech.ILog-Data')
 Data = Data != null && Data != undefined ? JSON.parse(Data) : []
 
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js')
+
 /*Based on Project 201905271231 src/client/Dialog.js*/
 const Dialog = {
 	create: (id, title, content, buttons, call) => {
