@@ -179,7 +179,7 @@ class ILog extends Component {
   Export() {
 		var a = document.createElement('a')
     a.href = URL.createObjectURL(new Blob([JSON.stringify({ILog: {Data: Data}})], {type: 'application/json'}))
-		a.download = "IC-Tech.ILog." + getTimeCode().v1 + '.json'
+		a.download = 'IC-Tech.ILog.' + getTimeCode().v1 + '.json'
     a.style.display = 'none'
     document.body.appendChild(a)
     a.click()
@@ -203,7 +203,7 @@ class ILog extends Component {
 			this.SetMent()
 		}
 	  b.onerror = e => {
-		  if(evt.target.error.name == "NotReadableError") {
+		  if(evt.target.error.name == 'NotReadableError') {
 		    Dialog.Visibility(Dialog.create(NaN, 'Error', 'The file could not be read.', ['OK'], (i, b) => Dialog.remove(i)), true)
 		  }
 		  else console.error(e)
