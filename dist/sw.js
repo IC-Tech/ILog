@@ -23,7 +23,7 @@ self.addEventListener('fetch', e => {
   if (!e.request.url.startsWith(self.location.origin)) return;
   e.respondWith(caches.match(e.request).then(v => {
     if (v) return v;
-    return caches.open(__caches_.runtime.name)
+    return caches.open(_caches_.runtime.name)
       .then(v => fetch(e.request)
         .then(r => v.put(e.request, r.clone())
           .then(() => r)));
