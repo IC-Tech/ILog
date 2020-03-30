@@ -7,8 +7,26 @@ import _IC_Common from './IC.Common.js';
 const IC_Common = _IC_Common.IC_Common;
 const ColorThemes = [ 'red', 'pink', 'purple', 'indeigo', 'blue', 'teal', 'yellow', 'orange', 'green', 'black' ]
 
-var Data = localStorage.getItem('IC-Tech.ILog-Data')
-Data = Data != null && Data != undefined ? JSON.parse(Data) : []
+var saveData = _ => {
+	var a = []
+	while((_ = Array.from(_)).length > 0) a.push(_.splice(0, 20))
+	localStorage[`IC-Tech.ILog-v2-DataSize`] = a.length
+	a.forEach((_, a) => localStorage[`IC-Tech.ILog-v2-Data:${a}`]=JSON.stringify(_))
+}
+var Data = (_=> {
+	_ = JSON.parse(localStorage['IC-Tech.ILog-Data'] || "[]")
+	if(_.length > 0) {
+		saveData(_)
+		localStorage.removeItem('IC-Tech.ILog-Data')
+	}
+	else {
+		var a, b = 0
+		if((a = parseInt(localStorage[`IC-Tech.ILog-v2-DataSize`] || "0")) <= 0) return []
+		_ = []
+		while(++b <= a) _.push(...JSON.parse(localStorage[`IC-Tech.ILog-v2-Data:${b - 1}`] || "[]"))
+	}
+	return _
+})()
 
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js')
 
@@ -161,13 +179,13 @@ class ILog extends Component {
 				return
 	  	}
 	  	Data[this.i == -1 ? Data.length : this.i] = v
-	  	localStorage.setItem('IC-Tech.ILog-Data', JSON.stringify(Data))
+	  	saveData(Data)
 	  }
 	  else if(v == 2) {
 	  	Dialog.Visibility(Dialog.create(NaN, 'Delete Entry', 'Are you sure you want to delete this entry. Remember by any chance this action can not be undone.', ['CANCEL', 'OK'], (i, b) => {
 	  		if(b == 1) {
 			  	Data.splice(this.i, 1)
-			  	localStorage.setItem('IC-Tech.ILog-Data', JSON.stringify(Data))
+			  	saveData(Data)
 	  		}
 	  		this.setState({UI: 0})
 			  Dialog.remove(i)
@@ -193,7 +211,7 @@ class ILog extends Component {
 		  	var c = JSON.parse(e.target.result)
 		  	if(!c || !c.ILog || !c.ILog.Data) return
 		  	Data = c.ILog.Data
-	  		localStorage.setItem('IC-Tech.ILog-Data', JSON.stringify(Data))
+	  		saveData(Data)
 		  }
 		  catch (e) {
 		    Dialog.Visibility(Dialog.create(NaN, 'Error', 'The file could not be read.', ['OK'], (i, b) => Dialog.remove(i)), true)
