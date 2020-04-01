@@ -7,7 +7,7 @@ const _caches_ = {
     data: [ '/vendor.bundle.js' ]
   },
   app: {
-    name: _caches_main + '-app-v1',
+    name: _caches_main + '-app-v2',
     data: [ '/p201907221623.bundle.js', '/style/p201907221623.css' ]
   },
   runtime: {
