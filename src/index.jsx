@@ -127,6 +127,13 @@ class ILog extends Component {
 		this.backAction = null
 		this.i = -1
 	}
+  componentDidUpdate() {
+  	console.log(this)
+  	if(this.state.UI == 0 && this.state.scroll) {
+	  	document.scrollingElement.scrollTop = this.state.scroll
+	  	this.state.scroll = 0
+	  }
+  }
   componentDidMount() {
   	var a = () => {
 			if(this.backAction != null) {
@@ -151,6 +158,7 @@ class ILog extends Component {
   	this.backAction = v ? (() => this.SetMent()) : null
   }
   EditCall(i, e) {
+  	this.state.scroll = document.scrollingElement.scrollTop
   	i = i == -1 ? -1 : (Data.length - 1) - i
   	const c = a => a.toString().length == 1 ? '0' + a : a.toString()
   	const a = a => `${a.getFullYear()}-${c(a.getMonth() + 1)}-${c(a.getDate())}`
@@ -296,7 +304,7 @@ class ILog extends Component {
 							<input type='file' id='i8' onChange={this.Import}/>
 							<label htmlFor='i8'>Import</label>
 							<button onClick={e => this.Export()}>Export</button>
-							<a href='http://ic-tech.dx.am/html/About.html'>Contact</a>
+							<a href='https://ic-tech.now.sh/'>Contact</a>
 							<button onClick={e => this.SettingsAction(1)}>Settings</button>
 							<button onClick={window.close}>Exit</button>
 						</div>
