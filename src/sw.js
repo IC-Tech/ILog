@@ -1,11 +1,6 @@
-/* Copyright © Imesh Chamara 2019 */
-
+/* Copyright © 2019-2020, Imesh Chamara. All rights reserved. */
 const _caches_main = 'ic-c-v1';
 const _caches_ = {
-  vendor: {
-    name: _caches_main + '-vendor-v1',
-    data: [ '/vendor.bundle.js' ]
-  },
   app: {
     name: _caches_main + '-app-v2',
     data: [ '/p201907221623.bundle.js', '/style/p201907221623.css' ]
