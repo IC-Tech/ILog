@@ -4,7 +4,7 @@ import '../icApp/icApp.js'
 import {IAR} from '../icApp/icApp-render.js'
 import './style.css'
 import './Themes.css'
-//import {} '../icApp/common.js'
+import {pram} from '../icApp/common.js'
 
 const ColorThemes = [ 'red', 'pink', 'purple', 'indeigo', 'blue', 'teal', 'yellow', 'orange', 'green', 'black' ]
 
@@ -45,12 +45,91 @@ class ILog extends IAR {
 	constructor() {
 		super()
 		this.data = {
-			ui: 0
+			ui: 0,
+			menu: false
 		}
+		this.hisUp = ((...a) => [
+			a[0] = (this.his = Object.assign(this.his, a[0])),
+			document.title = a[1] || 'ILog by IC-Tech',
+			a[2] = a[2] || location.pathname + location.search,
+			Object.keys(this.his).some(_ => this.his[_] != a[0][_]) || this.hisUp.sk ? 0 : history[a[3] ? 'replaceState' : 'pushState'](...a)]).bind(this)
 	}
 	didMount() {
-		console.log('icApp-render:speed - ' + (Date.now() - window.ic.pageLoad))
+		console.log('icApp-render:speed - ' + (window.ic.speed = Date.now() - window.ic.pageLoad))
+		new icApp.e('.menu').ae('click', e => {
+			if(e.target.classList.contains('menu')) history.go(-1) //this.setMenu()
+		})
+		const state = (_ => {
+			var a = _.state
+			this.hisUp.sk = 1
+			if(a.i == 0) this.EditCall(-1)
+			else if(a.i == 1) Data.some((_, b) => _.timeC == a.d ? (this.EditCall(Data.length - ++b) ? 1 : 1) : 0)
+			else if(this.his.i >= 0) this.EditActon(0)
+			this.setMenu(a.m)
+			this.hisUp.sk = 0
+			console.log(a)
+		}).bind(this)
+		var a = pram('ac'), b
+		a = a ? ([['new', 'edit'].some((_, b) => a.toLowerCase() == _ ? ((a = b) ? 1 : 1) : !!0), a])[1] : -1
+		if(a == 1 && !((b = pram('it')) && !isNaN(b = parseInt(b)))) {
+			a = -1
+			b = !!0
+		}
+		history.replaceState(this.his = {m:0, i: a, d: b}, document.title, location.pathname + location.search)
+		state({state: {i: a, d: b}})
+		window.addEventListener('popstate', state)
 	}
+  EditCall(i, e) {
+  	this.data.scroll = document.scrollingElement.scrollTop
+  	i = i >= 0 ? (Data.length - ++i) : -1
+  	const c = a => a.toString().length == 1 ? '0' + a : a.toString()
+  	const a = a => `${a.getFullYear()}-${c(a.getMonth() + 1)}-${c(a.getDate())}`
+  	const b = a => `${c(a.getHours())}:${c(a.getMinutes())}`
+  	var d = Date.now()
+  	this.update({
+  		e: [
+  			i == -1 ? (_ => ([
+  				_ = JSON.parse(localStorage['IC-Tech.ILog-v2-NameHelp'] || `{"d":0, "c":0}`),
+  				_.c = _.c > 0 ? ((d - _.d > (1000 * 60 * 60 * 24) || new Date(_.c).getDate() != new Date().getDate()) ? 1 : _.c + 1) : 1,
+  				_.d = d,
+  				`${c(new Date().getDate())} ${(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])[new Date().getMonth()]}, ${c(_.c)}`])[3])() : Data[i].name,
+  			a(new Date(i == -1 ? d : Data[i].timeC)),
+  			b(new Date(i == -1 ? d : Data[i].timeC)),
+  			a(new Date(i == -1 ? d : Data[i].timeM)),
+  			b(new Date(i == -1 ? d : Data[i].timeM)),
+  			i == -1 ? '' : Data[i].content,
+  			i
+  		],
+  		ui: 1
+  	})
+		//document.querySelector('#i7').style.display = i == -1 ? 'none' : 'inline-block'
+		this.hisUp({m: 0, i: i == -1 ? 0 : 1, d: i == -1 ? d : Data[i].timeC}, i == -1 ? 'Create New • ILog' : 'Edit • ILog', location.pathname + `?ac=${i == -1 ? 'new' : `edit&it=${i == -1 ? d : Data[i].timeC}`}`, i == -1 && this.his.m == 1)
+  	this.i = i
+  	this.setMenu()
+  }
+  setMenu(v) {
+  	var a = new icApp.e('html')
+  	a.st.overflow = v ? 'hidden' : 'unset'
+  	a.st.height = v ? '100%' : 'auto'
+  	a = new icApp.e('body')
+  	a.st.overflow = v ? 'hidden' : 'unset'
+  	a.st.height = v ? '100%' : 'auto'
+  	new icApp.e('.menu').st.display = v ? 'block' : 'none'
+  	if(v) this.hisUp({m: !!v})
+  	this.update({menu: !!v})
+  }
+  EditActon(v) {
+	  this.hisUp({i: -1, m: 0})
+  	this.update({ui: 0})
+  }
+  Export() {
+		var a = document.createElement('a')
+    a.href = URL.createObjectURL(new Blob([JSON.stringify({ILog: {Data: Data}})], {type: 'application/json'}))
+		a.download = 'IC-Tech.ILog.' + (_ => ['FullYear', 'Month', 'Date', 'Hours', 'Minutes', 'Seconds'].map(b=>(a => ((a = (_['get' + a]() + (a == 'Month' ? 1 : 0)).toString()).length == 1 ? ('0'+a) : a))(b)).join(''))(new Date()) + '.json'
+    a.style.display = 'none'
+    document.body.appendChild(a)
+    a.click()
+  }
 	didUpdate() {}
 	willUpdate() {}
 	render() {
@@ -58,7 +137,7 @@ class ILog extends IAR {
 			{t: 'div', at: [['id', 'ILog']], cl: 'ICApp', ch: [
 				{t: 'div', cl: 'top-c1'},
 				{t: 'div', cl: 'top', ch: [
-					{t: 'div', cl: 'c2' /*onClick={() => this.SetMent(true)}*/, ch: [
+					{t: 'div', cl: 'c2', e: [['onclick', _ => this.setMenu(1)]], ch: [
 						{t: 'div'},
 						{t: 'div'},
 						{t: 'div'}
@@ -67,28 +146,31 @@ class ILog extends IAR {
 						{t: 'span', txt: 'ILog'}
 					]}
 				]},
-				{t: 'div', cl: 'Entry', s: {display: this.data.ui == 0 ? 'flex' : 'none'}},
-				/*<div className='Entry' style={{display: this.state.UI == 0 ? 'flex' : 'none'}}>{
-					Data.slice().reverse().map((v, i) => <div key={'k0' + i + v.timeC} onClick={(e) => this.EditCall(i, e)}><span className='c1'>{v.name}</span><span className='c2'>{v.content}</span><span className='c3'>{new Date(v.timeM).toString()}</span></div>)
-				}</div>*/
+				{t: 'div', cl: 'Entry', s: {display: this.data.ui == 0 ? 'flex' : 'none'}, ch: Data.slice().reverse().map((_, a) => ({
+					t: 'div', e: [['onclick',  _ => this.EditCall(a, 0)]], ch: [
+						{t: 'span', cl: 'c1', txt: _.name},
+						{t: 'span', cl: 'c2', txt: _.content},
+						{t: 'span', cl: 'c3', txt: new Date(_.timeM).toString()},
+					]}
+				))},
 				{t: 'div', cl: 'Editor', s: {display: this.data.ui == 1 ? 'flex' : 'none'}, ch: [
 					{t: 'div', ch: [
 						{t: 'label', nodes: 1, ch: [
 							`Name:`,
-							{t: 'input', at:[['type', 'text'], ['id', 1]]}
+							{t: 'input', e:[['type', 'text'], ['value', this.data.e ? this.data.e[0] : '']]}
 						]}
 					]},
 					...(_ => ([['Create', 'Last Update'].forEach((a, _a) => ['Date', 'Time'].forEach((b, _b) => _.push({t: 'div', cl: 'c1', ch: [
 						{t: 'label', nodes: 1, ch: [
 							`${a} ${b}:`,
-							{t: 'input', at:[['type', _b ? 'time' : 'date'], ['id', _.length + 2]]}
+							{t: 'input', e:[['type', _b ? 'time' : 'date'], ['value', this.data.e ? this.data.e[_.length + 1] : '']]}
 						]}
 					]}))), _])[1])([]),
-					{t: 'textarea', at:[['id', 'i6']]},
+					{t: 'textarea', e:[['value', this.data.e ? this.data.e[5] : '']]},
 					{t: 'div', ch: [
-						{t: 'button', cl: 'ic-btn0', txt: 'CANCEL' /*onClick={() => this.EditActon(0)}*/},
-						{t: 'button', cl: 'ic-btn0', txt: 'DELETE' /*onClick={() => this.EditActon(2)}*/},
-						{t: 'button', cl: ['ic-btn0', 'c1'], txt: 'SAVE' /*onClick={() => this.EditActon(1)}*/}
+						{t: 'button', cl: 'ic-btn0', txt: 'CANCEL', e: [['onclick', _ => this.EditActon(0)]]},
+						{t: 'button', cl: 'ic-btn0', txt: 'DELETE', e: [['onclick', _ => this.EditActon(2)]]},
+						{t: 'button', cl: ['ic-btn0', 'c1'], txt: 'SAVE', e: [['onclick', _ => this.EditActon(1)]]}
 					]}
 				]},
 				{t: 'div', cl: 'Settings', s: {display: this.data.ui == 2 ? 'flex' : 'none'}, ch: [
@@ -104,13 +186,13 @@ class ILog extends IAR {
 				{t: 'div', cl: 'menu', ch: [
 					{t: 'div', cl: 'c1', ch: [
 						{t: 'div', ch: [
-							{t: 'button', txt: 'Create New' /*onClick={e => this.EditCall(-1, e)}*/},
+							{t: 'button', txt: 'Create New', e: [['onclick', _ => this.EditCall()]]},
 							{t: 'input', at: [['type', 'file'], ['id', 'i8']] /*onChange={this.Import}*/},
 							{t: 'label', txt: 'Import', at: [['for', 'i8']]},
-							{t: 'button', txt: 'Export' /*onClick={e => this.Export()}*/},
+							{t: 'button', txt: 'Export' , e: [['onclick', this.Export]]},
 							{t: 'a', txt: 'Contact', at:[['href', 'https://ic-tech.now.sh/']]},
 							{t: 'button', txt: 'Settings' /*onClick={e => this.SettingsAction(1)}*/},
-							{t: 'button', txt: 'Exit' /*onClick={window.close}*/}
+							{t: 'button', txt: 'Exit' , e: [['onclick', window.close]]}
 						]}
 					]}
 				]}
