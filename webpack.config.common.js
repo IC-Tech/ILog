@@ -8,7 +8,7 @@ const outputDirectory = 'dist';
 
 module.exports = {
   entry: {
-    'p201907221623': './src/index.jsx'
+    'p201907221623': './src/index.js'
   },
   output: {
     path: path.join(__dirname, outputDirectory),
