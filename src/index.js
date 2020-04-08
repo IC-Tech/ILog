@@ -105,19 +105,21 @@ class ILog extends IAR {
 		window.addEventListener('popstate', state)
 	}
 	EditCall(i, e) {
-		this.data.scroll = document.scrollingElement.scrollTop
+		var d
 		i = i >= 0 ? (Data.length - ++i) : -1
+		this.scroll = i == -1 ? null : ({e: d = document.scrollingElement, v: d.scrollTop})
 		const c = a => a.toString().length == 1 ? '0' + a : a.toString()
 		const a = a => `${a.getFullYear()}-${c(a.getMonth() + 1)}-${c(a.getDate())}`
 		const b = a => `${c(a.getHours())}:${c(a.getMinutes())}`
-		var d = Date.now()
+		d = Date.now()
 		this.update({
 			e: [
-				i == -1 ? (_ => ([
-					_ = JSON.parse(localStorage['IC-Tech.ILog-v2-NameHelp'] || `{"d":0, "c":0}`),
-					_.c = _.c > 0 ? ((d - _.d > (1000 * 60 * 60 * 24) || new Date(_.c).getDate() != new Date().getDate()) ? 1 : _.c + 1) : 1,
-					_.d = d,
-					`${c(new Date().getDate())} ${(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])[new Date().getMonth()]}, ${c(_.c)}`])[3])() : Data[i].name,
+				i == -1 ? (_ => {
+					_ = `${c(new Date().getDate())} ${(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])[new Date().getMonth()]}, `
+					var a = 1
+					while(Data.some(b => (_ + c(a)) == b.name)) a++
+					return _ + c(a)
+				})() : Data[i].name,
 				a(new Date(i == -1 ? d : Data[i].timeC)),
 				b(new Date(i == -1 ? d : Data[i].timeC)),
 				a(new Date(i == -1 ? d : Data[i].timeM)),
@@ -226,7 +228,12 @@ class ILog extends IAR {
 		}
 	  b.readAsText(_.files[0])
   }
-	didUpdate() {}
+	didUpdate() {
+		if(this.data.ui == 0 && this.scroll) {
+			this.scroll.e.scrollTop = this.scroll.v
+			this.scroll == !!0
+		}
+	}
 	willUpdate() {}
 	render() {
 		return (
