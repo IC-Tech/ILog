@@ -258,7 +258,14 @@ class ILog extends IAR {
 							{t: 'button', txt: 'Exit' , e: [['onclick', window.close]]}
 						]}
 					]}
-				]}
+				]},
+				...this.dialogs.map((_, a) => ({t: 'div', cl: ['dialog', 'show'], d: {ty: 'dia', in: a}, e: [['onclick', this.dc0]], ch: [
+					{t: 'div', ch: [
+						{t: 'span', cl: 'c1', txt: _.t},
+						{t: 'span', txt: _.c},
+						{t: 'div', ch: _.b.map((a,b) => ({t: 'button', cl: _.db == b ? ['ic-btn0', 'c1'] : 'ic-btn0', txt: a, e: [['onclick', this.dc]]})).reverse()}
+					]}
+				]}))
 			]}
 		)
 	}
