@@ -34,10 +34,20 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js')
 window.ic = window.ic || []
 window.ic.pageLoad = Date.now()
 document.addEventListener('DOMContentLoaded', () => {
+
+const setColor = c => {
+	var b = new icApp.e('#root')
+	ColorThemes.forEach(a => a == c ? (b.clc(c) ? 0 : b.cla(c)) : b.clr(a))
+	var a = a => a.length == 1 ? '0' + a : a
+	a = '#' + getComputedStyle(b.v).getPropertyValue('--ic-c-i4').replace(/ /g, '').split(',').map(b => a(parseInt(b).toString(16))).join('')
+	document.querySelector('[name=theme-color]').setAttribute('content', a)
+	document.querySelector('[name=msapplication-navbutton-color]').setAttribute('content', a)
+	document.querySelector('[name=apple-mobile-web-app-status-bar-style]').setAttribute('content', a)
+}
 let icApp = ic.icApp
 var _root_ = new icApp.e('#root')
 _root_.chr()
-_root_.cla('red')
+setColor('red')
 //Theme.set('red')
 
 class ILog extends IAR {
@@ -92,7 +102,6 @@ class ILog extends IAR {
 			else if(this.his.i >= 0) this.EditActon(0)
 			this.setMenu(a.m)
 			this.hisUp.sk = 0
-			console.log(a)
 		}).bind(this)
 		var a = pram('ac'), b
 		a = a ? ([['new', 'edit'].some((_, b) => a.toLowerCase() == _ ? ((a = b) ? 1 : 1) : !!0), a])[1] : -1
@@ -229,6 +238,17 @@ class ILog extends IAR {
 		}
 		b.readAsText(_.files[0])
 	}
+	sett(a, b) {
+  	if(a == 1 || a == 0) {
+  		this.update({ui: a == 0 ? 0 : 2})
+  		this.setMenu()
+  	}
+  	else if(a == 2) {
+  		var c = ColorThemes[parseInt(b.target.dataset.a)]
+  		localStorage.setItem('IC-Tech.ILog-Theme', c)
+  		setColor(c)
+  	}
+	}
 	didUpdate() {
 		if(this.data.ui == 0 && this.scroll) {
 			this.scroll.e.scrollTop = this.scroll.v
@@ -280,11 +300,11 @@ class ILog extends IAR {
 				{t: 'div', cl: 'Settings', s: {display: this.data.ui == 2 ? 'flex' : 'none'}, ch: [
 					{t: 'span', txt: 'Theme'},
 					{t: 'div', cl: 'c1', ch: (_ => {
-						for (var a=0;a<10;a++) _.push({t: 'div', cl: 'c' + a, d: {a: a, ty: 'co'} /*onClick={e => this.SettingsAction(2, e)}*/})
+						for (var a=0;a<10;a++) _.push({t: 'div', cl: 'c' + a, d: {a: a, ty: 'co'}, e: [['onclick', _ => this.sett(2, _)]]})
 						return _
 					})([])},
 					{t: 'div', ch: [
-						{t: 'button', txt: 'CLOSE', cl: ['ic-btn0', 'c1'] /*onClick={() => this.SettingsAction(0)}*/}
+						{t: 'button', txt: 'CLOSE', cl: ['ic-btn0', 'c1'], e: [['onclick', _ => this.sett(0)]]}
 					]}
 				]},
 				{t: 'div', cl: 'menu', ch: [
@@ -295,7 +315,7 @@ class ILog extends IAR {
 							{t: 'label', txt: 'Import', at: [['for', 'i8']]},
 							{t: 'button', txt: 'Export' , e: [['onclick', this.Export]]},
 							{t: 'a', txt: 'Contact', at:[['href', 'https://ic-tech.now.sh/']]},
-							{t: 'button', txt: 'Settings', e: [['onclick', _ => history.go(-2)]] /*onClick={e => this.SettingsAction(1)}*/},
+							{t: 'button', txt: 'Settings', e: [['onclick', _ => this.sett(1)]]},
 							{t: 'button', txt: 'Exit' , e: [['onclick', window.close]]}
 						]}
 					]}
