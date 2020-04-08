@@ -103,57 +103,57 @@ class ILog extends IAR {
 		state({state: {i: a, d: b}})
 		window.addEventListener('popstate', state)
 	}
-  EditCall(i, e) {
-  	this.data.scroll = document.scrollingElement.scrollTop
-  	i = i >= 0 ? (Data.length - ++i) : -1
-  	const c = a => a.toString().length == 1 ? '0' + a : a.toString()
-  	const a = a => `${a.getFullYear()}-${c(a.getMonth() + 1)}-${c(a.getDate())}`
-  	const b = a => `${c(a.getHours())}:${c(a.getMinutes())}`
-  	var d = Date.now()
-  	this.update({
-  		e: [
-  			i == -1 ? (_ => ([
-  				_ = JSON.parse(localStorage['IC-Tech.ILog-v2-NameHelp'] || `{"d":0, "c":0}`),
-  				_.c = _.c > 0 ? ((d - _.d > (1000 * 60 * 60 * 24) || new Date(_.c).getDate() != new Date().getDate()) ? 1 : _.c + 1) : 1,
-  				_.d = d,
-  				`${c(new Date().getDate())} ${(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])[new Date().getMonth()]}, ${c(_.c)}`])[3])() : Data[i].name,
-  			a(new Date(i == -1 ? d : Data[i].timeC)),
-  			b(new Date(i == -1 ? d : Data[i].timeC)),
-  			a(new Date(i == -1 ? d : Data[i].timeM)),
-  			b(new Date(i == -1 ? d : Data[i].timeM)),
-  			i == -1 ? '' : Data[i].content,
-  			i
-  		],
-  		ui: 1
-  	})
+	EditCall(i, e) {
+		this.data.scroll = document.scrollingElement.scrollTop
+		i = i >= 0 ? (Data.length - ++i) : -1
+		const c = a => a.toString().length == 1 ? '0' + a : a.toString()
+		const a = a => `${a.getFullYear()}-${c(a.getMonth() + 1)}-${c(a.getDate())}`
+		const b = a => `${c(a.getHours())}:${c(a.getMinutes())}`
+		var d = Date.now()
+		this.update({
+			e: [
+				i == -1 ? (_ => ([
+					_ = JSON.parse(localStorage['IC-Tech.ILog-v2-NameHelp'] || `{"d":0, "c":0}`),
+					_.c = _.c > 0 ? ((d - _.d > (1000 * 60 * 60 * 24) || new Date(_.c).getDate() != new Date().getDate()) ? 1 : _.c + 1) : 1,
+					_.d = d,
+					`${c(new Date().getDate())} ${(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])[new Date().getMonth()]}, ${c(_.c)}`])[3])() : Data[i].name,
+				a(new Date(i == -1 ? d : Data[i].timeC)),
+				b(new Date(i == -1 ? d : Data[i].timeC)),
+				a(new Date(i == -1 ? d : Data[i].timeM)),
+				b(new Date(i == -1 ? d : Data[i].timeM)),
+				i == -1 ? '' : Data[i].content,
+				i
+			],
+			ui: 1
+		})
 		//document.querySelector('#i7').style.display = i == -1 ? 'none' : 'inline-block'
 		this.hisUp({m: 0, i: i == -1 ? 0 : 1, d: i == -1 ? d : Data[i].timeC}, i == -1 ? 'Create New • ILog' : 'Edit • ILog', location.pathname + `?ac=${i == -1 ? 'new' : `edit&it=${i == -1 ? d : Data[i].timeC}`}`, i == -1 && this.his.m == 1)
-  	this.i = i
-  	this.setMenu()
-  }
-  setMenu(v) {
-  	var a = new icApp.e('html')
-  	a.st.overflow = v ? 'hidden' : 'unset'
-  	a.st.height = v ? '100%' : 'auto'
-  	a = new icApp.e('body')
-  	a.st.overflow = v ? 'hidden' : 'unset'
-  	a.st.height = v ? '100%' : 'auto'
-  	new icApp.e('.menu').st.display = v ? 'block' : 'none'
-  	if(v) this.hisUp({m: !!v})
-  	this.update({menu: !!v})
-  }
   EditActon(v) {
 	  this.hisUp({i: -1, m: 0})
   	this.update({ui: 0})
   }
-  Export() {
+		this.i = i
+		this.setMenu()
+	}
+	setMenu(v) {
+		var a = new icApp.e('html')
+		a.st.overflow = v ? 'hidden' : 'unset'
+		a.st.height = v ? '100%' : 'auto'
+		a = new icApp.e('body')
+		a.st.overflow = v ? 'hidden' : 'unset'
+		a.st.height = v ? '100%' : 'auto'
+		new icApp.e('.menu').st.display = v ? 'block' : 'none'
+		if(v) this.hisUp({m: !!v})
+		this.update({menu: !!v})
+	}
+	Export() {
 		var a = document.createElement('a')
-    a.href = URL.createObjectURL(new Blob([JSON.stringify({ILog: {Data: Data}})], {type: 'application/json'}))
+		a.href = URL.createObjectURL(new Blob([JSON.stringify({ILog: {Data: Data}})], {type: 'application/json'}))
 		a.download = 'IC-Tech.ILog.' + (_ => ['FullYear', 'Month', 'Date', 'Hours', 'Minutes', 'Seconds'].map(b=>(a => ((a = (_['get' + a]() + (a == 'Month' ? 1 : 0)).toString()).length == 1 ? ('0'+a) : a))(b)).join(''))(new Date()) + '.json'
-    a.style.display = 'none'
-    document.body.appendChild(a)
-    a.click()
-  }
+		a.style.display = 'none'
+		document.body.appendChild(a)
+		a.click()
+	}
 	didUpdate() {}
 	willUpdate() {}
 	render() {
@@ -181,7 +181,7 @@ class ILog extends IAR {
 					{t: 'div', ch: [
 						{t: 'label', nodes: 1, ch: [
 							`Name:`,
-							{t: 'input', e:[['type', 'text'], ['value', this.data.e ? this.data.e[0] : '']]}
+							{t: 'input', e:[['type', 'text'], ['value', this.data.e ? this.data.e[0] : ''], ['id', 'i0']]}
 						]}
 					]},
 					...(_ => ([['Create', 'Last Update'].forEach((a, _a) => ['Date', 'Time'].forEach((b, _b) => _.push({t: 'div', cl: 'c1', ch: [
