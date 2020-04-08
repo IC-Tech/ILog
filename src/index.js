@@ -197,37 +197,38 @@ class ILog extends IAR {
 		a.click()
 	}
 	Import(_) {
-  	if(!(_ = _.target).files[0]) return
-	  var b = new FileReader()
-	  b.onload = e => {
-	  	try {
-		  	var c = JSON.parse(e.target.result || "")
-		  	if(!c || !(c = c.ILog) || !c.Data) return
-		  	Data = c.Data
-	  		saveData(Data)
-		  }
-		  catch (e) {
-		    this.dialog.create({
-		    	t: 'Error',
-		    	c: 'The file couldn\'t import.',
-		    	b: ['OK'],
-		    	f: (a, b) => this.dialog.remove(b)
-		    })
-		  	console.error(e)
-		  }
+		if(!(_ = _.target).files[0]) return
+		var b = new FileReader()
+		b.onload = e => {
+			try {
+				var c = JSON.parse(e.target.result || "")
+				if(!c || !(c = c.ILog) || !(c = c.Data)) return
+				c.forEach(c => !Data.some(b => !['timeC', 'timeM', 'name', 'content'].some(a => c[a] != b[a])) ? Data.push(c) : 0)
+				saveData(Data)
+				this.update()
+			}
+			catch (e) {
+				this.dialog.create({
+					t: 'Error',
+					c: 'The file couldn\'t import.',
+					b: ['OK'],
+					f: (a, b) => this.dialog.remove(b)
+				})
+				console.error(e)
+			}
 			this.setMenu()
 		}
-	  b.onerror = e => {
-		  this.dialog.create({
-		  	t: 'Error',
-		  	c: e.name == 'NotReadableError' ? 'The file could not be read.' : 'The file didn\'t import.',
-		   	b: ['OK'],
-		   	f: (a, b) => this.dialog.remove(b)
-		  })
-		  if(e.name != 'NotReadableError') console.error(e)
+		b.onerror = e => {
+			this.dialog.create({
+				t: 'Error',
+				c: e.name == 'NotReadableError' ? 'The file could not be read.' : 'The file didn\'t import.',
+			 	b: ['OK'],
+			 	f: (a, b) => this.dialog.remove(b)
+			})
+			if(e.name != 'NotReadableError') console.error(e)
 		}
-	  b.readAsText(_.files[0])
-  }
+		b.readAsText(_.files[0])
+	}
 	didUpdate() {
 		if(this.data.ui == 0 && this.scroll) {
 			this.scroll.e.scrollTop = this.scroll.v
