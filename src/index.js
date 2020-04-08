@@ -128,10 +128,6 @@ class ILog extends IAR {
 		})
 		//document.querySelector('#i7').style.display = i == -1 ? 'none' : 'inline-block'
 		this.hisUp({m: 0, i: i == -1 ? 0 : 1, d: i == -1 ? d : Data[i].timeC}, i == -1 ? 'Create New • ILog' : 'Edit • ILog', location.pathname + `?ac=${i == -1 ? 'new' : `edit&it=${i == -1 ? d : Data[i].timeC}`}`, i == -1 && this.his.m == 1)
-  EditActon(v) {
-	  this.hisUp({i: -1, m: 0})
-  	this.update({ui: 0})
-  }
 		this.i = i
 		this.setMenu()
 	}
@@ -145,6 +141,48 @@ class ILog extends IAR {
 		new icApp.e('.menu').st.display = v ? 'block' : 'none'
 		if(v) this.hisUp({m: !!v})
 		this.update({menu: !!v})
+	}
+	EditActon(v) {
+		if(v == 1) {
+			v = {
+				name: new icApp.e('#i0').val,
+				timeC: Date.parse(new icApp.e('#i1').val + ' ' + new icApp.e('#i2').val),
+				timeM: Date.now(),
+				content: new icApp.e('#i5').val
+			}
+			if(v.name == '') {
+				this.dialog.create({
+					t: 'Save Entry',
+					c: 'Please add a name for this entry.',
+					b: ['OK'],
+					db: 0,
+					f: _ => this.dialog.remove(_[0])
+				})
+				return
+			}
+			Data[this.i = this.i == -1 ? Data.length : this.i] = v
+			saveData(Data)
+			this.hisUp({m: 0, i: 1, d: Data[this.i].timeC}, 'Edit • ILog', location.pathname + `?ac=edit&it=${Data[this.i].timeC}`, 1)
+		}
+		else if(v == 2) {
+			this.dialog.create({
+				t: 'Delete Entry',
+				c: 'Are you sure you want to delete this entry. Remember by any chance this action can not be undone.',
+				b: ['CANCEL', 'OK'],
+				db: 0,
+				f: (a,b) => {
+					if(a == 1) {
+			 	 		Data.splice(this.i, 1)
+						saveData(Data)
+					}
+					this.data.ui = 0
+					this.dialog.remove(b)
+				}
+			})
+			return
+		}
+		this.hisUp({i: -1, m: 0}, 'ILog by IC-Tech', location.pathname)
+		this.update({ui: 0})
 	}
 	Export() {
 		var a = document.createElement('a')
