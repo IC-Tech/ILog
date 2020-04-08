@@ -46,8 +46,32 @@ class ILog extends IAR {
 		super()
 		this.data = {
 			ui: 0,
-			menu: false
+			menu: false,
 		}
+		this.dialog = {
+			remove: (_ => [this.dialogs.splice(_, 1), this.update()]).bind(this),
+			create: (_ => [this.dialogs.push(_), this.update()]).bind(this),
+		}
+		this.dialogs = []
+		this.dc0 = (_ => new icApp.e(_.target).clc('dialog') ? this.dc(_) : 0).bind(this)
+		this.dc = (_ => {
+			var a = (_ = new icApp.e(_.target)).clc('dialog') ? _ : 0
+			for(var b=0,c=_.p; !a && b < 5; b++)
+				if(c.clc('dialog')) {
+					a = c
+					break
+				}
+				else c = c.p
+			a = parseInt(a.d.in)
+			if(_.clc('dialog')) {
+				if(this.dialogs[a].f0) return this.dialogs[a].f0(a)
+				_ = 'CANCEL'
+				this.dialogs.forEach(a => a.b.forEach(a => a == 'CANCEL' || a == 'CLOSE' ? _ = a : 0))
+			}
+			else _ = _.txt
+			this.dialogs[a].f(this.dialogs[a].b.indexOf(_), a, _)
+		}).bind(this)
+		this.EditActon = this.EditActon.bind(this)
 		this.hisUp = ((...a) => [
 			a[0] = (this.his = Object.assign(this.his, a[0])),
 			document.title = a[1] || 'ILog by IC-Tech',
