@@ -72,6 +72,7 @@ class ILog extends IAR {
 			this.dialogs[a].f(this.dialogs[a].b.indexOf(_), a, _)
 		}).bind(this)
 		this.EditActon = this.EditActon.bind(this)
+		this.Import = this.Import.bind(this)
 		this.hisUp = ((...a) => [
 			a[0] = (this.his = Object.assign(this.his, a[0])),
 			document.title = a[1] || 'ILog by IC-Tech',
@@ -193,6 +194,38 @@ class ILog extends IAR {
 		document.body.appendChild(a)
 		a.click()
 	}
+	Import(_) {
+  	if(!(_ = _.target).files[0]) return
+	  var b = new FileReader()
+	  b.onload = e => {
+	  	try {
+		  	var c = JSON.parse(e.target.result || "")
+		  	if(!c || !(c = c.ILog) || !c.Data) return
+		  	Data = c.Data
+	  		saveData(Data)
+		  }
+		  catch (e) {
+		    this.dialog.create({
+		    	t: 'Error',
+		    	c: 'The file couldn\'t import.',
+		    	b: ['OK'],
+		    	f: (a, b) => this.dialog.remove(b)
+		    })
+		  	console.error(e)
+		  }
+			this.setMenu()
+		}
+	  b.onerror = e => {
+		  this.dialog.create({
+		  	t: 'Error',
+		  	c: e.name == 'NotReadableError' ? 'The file could not be read.' : 'The file didn\'t import.',
+		   	b: ['OK'],
+		   	f: (a, b) => this.dialog.remove(b)
+		  })
+		  if(e.name != 'NotReadableError') console.error(e)
+		}
+	  b.readAsText(_.files[0])
+  }
 	didUpdate() {}
 	willUpdate() {}
 	render() {
@@ -250,7 +283,7 @@ class ILog extends IAR {
 					{t: 'div', cl: 'c1', ch: [
 						{t: 'div', ch: [
 							{t: 'button', txt: 'Create New', e: [['onclick', _ => this.EditCall()]]},
-							{t: 'input', at: [['type', 'file'], ['id', 'i8']] /*onChange={this.Import}*/},
+							{t: 'input', at: [['type', 'file'], ['id', 'i8']], e: [['onchange', this.Import]]},
 							{t: 'label', txt: 'Import', at: [['for', 'i8']]},
 							{t: 'button', txt: 'Export' , e: [['onclick', this.Export]]},
 							{t: 'a', txt: 'Contact', at:[['href', 'https://ic-tech.now.sh/']]},
