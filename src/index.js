@@ -76,7 +76,8 @@ class ILog extends IAR {
 			a[0] = (this.his = Object.assign(this.his, a[0])),
 			document.title = a[1] || 'ILog by IC-Tech',
 			a[2] = a[2] || location.pathname + location.search,
-			Object.keys(this.his).some(_ => this.his[_] != a[0][_]) || this.hisUp.sk ? 0 : history[a[3] ? 'replaceState' : 'pushState'](...a)]).bind(this)
+			Object.keys(this.his).some(_ => this.his[_] != a[0][_]) || this.hisUp.sk ? 0 : history[a[3] ? 'replaceState' : 'pushState'](...a)
+		]).bind(this)
 	}
 	didMount() {
 		console.log('icApp-render:speed - ' + (window.ic.speed = Date.now() - window.ic.pageLoad))
