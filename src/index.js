@@ -171,7 +171,7 @@ class ILog extends IAR {
 					]}
 				]},
 				{t: 'div', cl: 'Entry', s: {display: this.data.ui == 0 ? 'flex' : 'none'}, ch: Data.slice().reverse().map((_, a) => ({
-					t: 'div', e: [['onclick',  _ => this.EditCall(a, 0)]], ch: [
+					t: 'div', e: [['onclick', _ => this.EditCall(a, 0)]], ch: [
 						{t: 'span', cl: 'c1', txt: _.name},
 						{t: 'span', cl: 'c2', txt: _.content},
 						{t: 'span', cl: 'c3', txt: new Date(_.timeM).toString()},
@@ -187,13 +187,13 @@ class ILog extends IAR {
 					...(_ => ([['Create', 'Last Update'].forEach((a, _a) => ['Date', 'Time'].forEach((b, _b) => _.push({t: 'div', cl: 'c1', ch: [
 						{t: 'label', nodes: 1, ch: [
 							`${a} ${b}:`,
-							{t: 'input', e:[['type', _b ? 'time' : 'date'], ['value', this.data.e ? this.data.e[_.length + 1] : '']]}
+							{t: 'input', e:[['type', _b ? 'time' : 'date'], ['value', this.data.e ? this.data.e[_.length + 1] : ''], ['id', 'i' + (_.length + 1)]]}
 						]}
 					]}))), _])[1])([]),
-					{t: 'textarea', e:[['value', this.data.e ? this.data.e[5] : '']]},
+					{t: 'textarea', e:[['value', this.data.e ? this.data.e[5] : ''], ['id', 'i5']]},
 					{t: 'div', ch: [
 						{t: 'button', cl: 'ic-btn0', txt: 'CANCEL', e: [['onclick', _ => this.EditActon(0)]]},
-						{t: 'button', cl: 'ic-btn0', txt: 'DELETE', e: [['onclick', _ => this.EditActon(2)]]},
+						{t: 'button', cl: 'ic-btn0', s: {display: this.i == -1 ? 'none': 'inline-block'}, txt: 'DELETE', e: [['onclick', _ => this.EditActon(2)]]},
 						{t: 'button', cl: ['ic-btn0', 'c1'], txt: 'SAVE', e: [['onclick', _ => this.EditActon(1)]]}
 					]}
 				]},
@@ -215,7 +215,7 @@ class ILog extends IAR {
 							{t: 'label', txt: 'Import', at: [['for', 'i8']]},
 							{t: 'button', txt: 'Export' , e: [['onclick', this.Export]]},
 							{t: 'a', txt: 'Contact', at:[['href', 'https://ic-tech.now.sh/']]},
-							{t: 'button', txt: 'Settings' /*onClick={e => this.SettingsAction(1)}*/},
+							{t: 'button', txt: 'Settings', e: [['onclick', _ => history.go(-2)]] /*onClick={e => this.SettingsAction(1)}*/},
 							{t: 'button', txt: 'Exit' , e: [['onclick', window.close]]}
 						]}
 					]}
