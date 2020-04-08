@@ -31,7 +31,6 @@ var Data = (_=> {
 
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js')
 
-
 window.ic = window.ic || []
 window.ic.pageLoad = Date.now()
 document.addEventListener('DOMContentLoaded', () => {
@@ -176,6 +175,7 @@ class ILog extends IAR {
 					if(a == 1) {
 			 	 		Data.splice(this.i, 1)
 						saveData(Data)
+						this.hisUp({i: -1, m: 0}, 'ILog by IC-Tech', location.pathname)
 					}
 					this.data.ui = 0
 					this.dialog.remove(b)
@@ -232,7 +232,7 @@ class ILog extends IAR {
 		return (
 			{t: 'div', at: [['id', 'ILog']], cl: 'ICApp', ch: [
 				{t: 'div', cl: 'top-c1'},
-				{t: 'div', cl: 'top', ch: [
+				{t: 'header', cl: 'top', ch: [
 					{t: 'div', cl: 'c2', e: [['onclick', _ => this.setMenu(1)]], ch: [
 						{t: 'div'},
 						{t: 'div'},
@@ -242,7 +242,7 @@ class ILog extends IAR {
 						{t: 'span', txt: 'ILog'}
 					]}
 				]},
-				{t: 'div', cl: 'Entry', s: {display: this.data.ui == 0 ? 'flex' : 'none'}, ch: Data.slice().reverse().map((_, a) => ({
+				{t: 'main', cl: 'Entry', s: {display: this.data.ui == 0 ? 'flex' : 'none'}, ch: Data.slice().reverse().map((_, a) => ({
 					t: 'div', e: [['onclick', _ => this.EditCall(a, 0)]], ch: [
 						{t: 'span', cl: 'c1', txt: _.name},
 						{t: 'span', cl: 'c2', txt: _.content},
@@ -296,7 +296,7 @@ class ILog extends IAR {
 					{t: 'div', ch: [
 						{t: 'span', cl: 'c1', txt: _.t},
 						{t: 'span', txt: _.c},
-						{t: 'div', ch: _.b.map((a,b) => ({t: 'button', cl: _.db == b ? ['ic-btn0', 'c1'] : 'ic-btn0', txt: a, e: [['onclick', this.dc]]})).reverse()}
+						{t: 'div', ch: _.b.map((a,b) => ({t: 'button', cl: _.db == b || !_.db && b == 0 ? ['ic-btn0', 'c1'] : 'ic-btn0', txt: a, e: [['onclick', this.dc]]})).reverse()}
 					]}
 				]}))
 			]}
