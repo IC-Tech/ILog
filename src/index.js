@@ -99,7 +99,9 @@ class ILog extends IAR {
 			this.hisUp.sk = 1
 			if(a.i == 0) this.EditCall(-1)
 			else if(a.i == 1) Data.some((_, b) => _.timeC == a.d ? (this.EditCall(Data.length - ++b) ? 1 : 1) : 0)
-			else if(this.his.i >= 0) this.EditActon(0)
+			else if(this.his.i == 0 || this.his.i == 1) this.EditActon(0)
+			else if(a.i == 2) this.update({ui: 2})
+			else if(a.i == -1) this.update({ui: 0})
 			this.setMenu(a.m)
 			this.hisUp.sk = 0
 		}).bind(this)
@@ -242,6 +244,7 @@ class ILog extends IAR {
   	if(a == 1 || a == 0) {
   		this.update({ui: a == 0 ? 0 : 2})
   		this.setMenu()
+			this.hisUp({i: a == 0 ? -1 : 2, m: 0}, a == 0 ? 'ILog by IC-Tech' : 'Settings • ILog', location.pathname, a != 0)
   	}
   	else if(a == 2) {
   		var c = ColorThemes[parseInt(b.target.dataset.a)]
