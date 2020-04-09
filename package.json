@@ -1,7 +1,7 @@
 {
-  "name": "201907221623",
-  "version": "1.0.0",
-  "description": "Project 201907221623 ILog",
+  "name": "ilog",
+  "version": "2.0.0",
+  "description": "Project ILog (201907221623)",
   "main": "src/index.js",
   "scripts": {
     "build": "webpack --mode production --config webpack.config.pro.js",
@@ -12,12 +12,12 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IC-Tech/201907221623.git"
+    "url": "git+https://github.com/IC-Tech/ILog.git"
   },
   "bugs": {
-    "url": "https://github.com/IC-Tech/201907221623/issues"
+    "url": "https://github.com/IC-Tech/ILog/issues"
   },
-  "homepage": "https://github.com/IC-Tech/201907221623#readme",
+  "homepage": "https://github.com/IC-Tech/ILog#readme",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "react": "^16.13.1",
