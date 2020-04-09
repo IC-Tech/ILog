@@ -92,7 +92,7 @@ class ILog extends IAR {
 	didMount() {
 		console.log('icApp-render:speed - ' + (window.ic.speed = Date.now() - window.ic.pageLoad))
 		new icApp.e('.menu').ae('click', e => {
-			if(e.target.classList.contains('menu')) history.go(-1) //this.setMenu()
+			if(e.target.classList.contains('menu')) history.go(-1)
 		})
 		const state = (_ => {
 			var a = _.state
@@ -140,7 +140,6 @@ class ILog extends IAR {
 			],
 			ui: 1
 		})
-		//document.querySelector('#i7').style.display = i == -1 ? 'none' : 'inline-block'
 		this.hisUp({m: 0, i: i == -1 ? 0 : 1, d: i == -1 ? d : Data[i].timeC}, i == -1 ? 'Create New • ILog' : 'Edit • ILog', location.pathname + `?ac=${i == -1 ? 'new' : `edit&it=${i == -1 ? d : Data[i].timeC}`}`, i == -1 && this.his.m == 1)
 		this.i = i
 		this.setMenu()
@@ -182,10 +181,10 @@ class ILog extends IAR {
 			this.dialog.create({
 				t: 'Delete Entry',
 				c: 'Are you sure you want to delete this entry. Remember by any chance this action can not be undone.',
-				b: ['CANCEL', 'OK'],
-				db: 0,
+				b: ['OK', 'CANCEL'],
+				db: 1,
 				f: (a,b) => {
-					if(a == 1) {
+					if(a == 0) {
 			 	 		Data.splice(this.i, 1)
 						saveData(Data)
 						this.hisUp({i: -1, m: 0}, 'ILog by IC-Tech', location.pathname)
