@@ -1,9 +1,9 @@
 /* Copyright © 2019-2020, Imesh Chamara. All rights reserved. */
-const _caches_main = 'ic-c-v1';
+const _caches_main = 'ic-c-v2';
 const _caches_ = {
   app: {
-    name: _caches_main + '-app-v3',
-    data: [ '/p201907221623.bundle.js', '/style/p201907221623.css' ]
+    name: _caches_main + '-app-v1',
+    data: [ '/ilog.bundle.js', '/style/ilog.css' ]
   },
   runtime: {
     name: _caches_main + '-r-v1',
