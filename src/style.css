@@ -27,17 +27,10 @@ body, a, span, p, textarea {
   position: absolute;
   top: 0;
   background-color: rgb(var(--ic-c-i7));
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
-          box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
-  display: -webkit-box;
-  display: -ms-flexbox;
+  box-sizing: border-box;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  flex-direction: row;
 }
 .top > div {
   display: inline-block;
@@ -46,14 +39,9 @@ body, a, span, p, textarea {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   height: 100%;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
   width: auto;
   margin-right: 20px;
   cursor: pointer;
@@ -77,21 +65,15 @@ body, a, span, p, textarea {
 }
 .Entry {
   width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   height: auto;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
 }
 .Entry > div {
   width: 80%;
   display: block;
   height: 54px;
-  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   border-radius: 6px;
   margin: 6px auto;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -105,9 +87,6 @@ body, a, span, p, textarea {
   line-height: 1;
 }
 .Entry > div span:not(.c2) {
-  -ms-user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
   user-serlect: none;
 }
 .Entry > div span.c1 {
@@ -126,9 +105,7 @@ body, a, span, p, textarea {
   font-size: 12px;
 }
 .menu, .menu * {
-  -webkit-transition-duration: .3s;
-       -o-transition-duration: .3s;
-          transition-duration: .3s;
+  transition-duration: .3s;
 }
 .menu, .dialog {
   display: none;
@@ -173,24 +150,17 @@ body, a, span, p, textarea {
 }
 .Editor {
   padding: 6px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
 }
 .Editor > * {
   display: block;
   width: 100%;
   padding: 4px 0px;
   height: 26px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 .Editor label {
   display: block;
@@ -207,8 +177,6 @@ body, a, span, p, textarea {
   border-bottom: 2px solid rgb(var(--ic-c-i3));
 }
 .Editor .c2 {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   height: 32px;
 }
@@ -249,9 +217,7 @@ body, a, span, p, textarea {
   padding: 6px 12px;
   margin: 4px;
   border-radius: 4px;
-  -webkit-transition-duration: .3s;
-       -o-transition-duration: .3s;
-          transition-duration: .3s;
+  transition-duration: .3s;
   float: right;
 }
 .ic-btn0.c1, .ic-btn0.c1 {
@@ -264,13 +230,8 @@ body, a, span, p, textarea {
   background-color: rgb(204, 204, 204);
 }
 .dialog {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  flex-direction: column;
+  justify-content: center;
 }
 .dialog > div {
   width: 90%;
@@ -278,18 +239,11 @@ body, a, span, p, textarea {
   background-color: rgb(255, 255, 255);
   margin: 0 auto;
   border-radius: 4px;
-  -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
-          box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
-  display: -webkit-box;
-  display: -ms-flexbox;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   padding: 14px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   height: auto;
   min-width: 240px;
   max-width: 320px;
@@ -314,8 +268,6 @@ body, a, span, p, textarea {
   margin-bottom: -4px;
 }
 .dialog.show {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 .Settings > span {
@@ -323,21 +275,13 @@ body, a, span, p, textarea {
   text-align: center;
 }
 .Settings {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   padding: 0 4px;
 }
 .Settings > .c1 {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .Settings > .c1 > * {
   display: inline-block;
@@ -345,13 +289,11 @@ body, a, span, p, textarea {
   width: 34px;
   height: 34px;
   margin: 4px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   border: 2px solid rgb(68, 68, 68);
   border-radius: 6px;
   cursor: pointer;
-  -webkit-box-shadow: 0 0px 4px rgba(0, 0, 0, 0.3);
-          box-shadow: 0 0px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.3);
 }
 .Settings > .c1 .c0 {
   background-color: rgb(244, 67, 54);
