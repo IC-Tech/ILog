@@ -69,7 +69,7 @@ body, a, span, p, textarea {
   height: auto;
   flex-direction: column;
 }
-.Entry > div {
+.Entry > .c1 {
   width: 80%;
   display: block;
   height: 54px;
@@ -80,29 +80,43 @@ body, a, span, p, textarea {
   padding: 6px;
   cursor: pointer;
 }
-.Entry > div span {
+.Entry > .c1 span {
   display: block;
   white-space: pre;
   overflow: hidden;
   line-height: 1;
 }
-.Entry > div span:not(.c2) {
+.Entry > .c1 span:not(.c2) {
   user-serlect: none;
 }
-.Entry > div span.c1 {
+.Entry > .c1 span.c1 {
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   height: 16px;
 }
-.Entry > div span.c2 {
+.Entry > .c1 span.c2 {
   font-size: 14px;
   font-weight: 300;
   height: 28px;
   cursor: initial;
 }
-.Entry > div span.c3 {
+.Entry > .c1 span.c3 {
   font-size: 12px;
+}
+.Entry > .c2 {
+  display: block;
+}
+.Entry > .c2 span {
+  display: block;
+  margin: 4px auto;
+  text-align: center;
+  color: rgb(var(--ic-c-i6));
+  padding: 4px;
+  width: 132px;
+  background-color: rgb(var(--ic-c-i0));
+  border-radius: 6px;
+  cursor: pointer;
 }
 .menu, .menu * {
   transition-duration: .3s;
