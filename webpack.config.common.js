@@ -1,14 +1,14 @@
 const path = require('path');
 const webpack = require('webpack')
-const HtmlWebpackPlugin= require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
+const PACKAGE = require('./package.json')
 
 const outputDirectory = 'dist';
 
 module.exports = {
   entry: {
-    'p201907221623': './src/index.jsx'
+    'ilog': './src/index.js'
   },
   output: {
     path: path.join(__dirname, outputDirectory),
@@ -35,30 +35,28 @@ module.exports = {
   },
   devServer: {
     port: 3000,
-    open: true
+    open: false
   },
   plugins: [
-    new webpack.ProgressPlugin(),
-    new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      title: 'ILog',
-      template: './public/index.html',
-      filename: 'index.html',
-      chunks: ['p201907221623', 'react_vendor', 'vendor'],
-      favicon: './public/favicon.ico'
-    }),
-    new CopyPlugin([
-      {
-        from: 'public/common/*',
-        to: './',
-        flatten: true
-      }
-    ]),
     new CopyPlugin([
       {
         from: './src/sw.js',
         to: './sw.js'
       }
-    ])
+    ]),
+    new webpack.ProgressPlugin(),
+    new CleanWebpackPlugin(),
+    new CopyPlugin([
+      {
+        from: 'src/public',
+        to: './'
+      }
+    ]),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+      'process.env.__IC_DEV__': process.env.WEBPACK_DEV_SERVER == 'true' ? 'true' : 'false',
+      '__VER__': JSON.stringify(PACKAGE.version),
+      '__BUILD_TIME__': Date.now().toString()
+    })
   ]
 };

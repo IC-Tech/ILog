@@ -1,7 +1,7 @@
 {
-  "name": "201907221623",
-  "version": "1.0.0",
-  "description": "Project 201907221623 ILog",
+  "name": "ilog",
+  "version": "2.0.0",
+  "description": "Project ILog (201907221623)",
   "main": "src/index.js",
   "scripts": {
     "build": "webpack --mode production --config webpack.config.pro.js",
@@ -12,37 +12,39 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IC-Tech/201907221623.git"
+    "url": "git+https://github.com/IC-Tech/ILog.git"
   },
   "bugs": {
-    "url": "https://github.com/IC-Tech/201907221623/issues"
+    "url": "https://github.com/IC-Tech/ILog/issues"
   },
-  "homepage": "https://github.com/IC-Tech/201907221623#readme",
+  "homepage": "https://github.com/IC-Tech/ILog#readme",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "serve": "^11.1.0"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "serve": "^11.3.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/preset-react": "^7.0.0",
-    "babel-loader": "^8.0.6",
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
+    "autoprefixer": "^9.7.6",
+    "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.1.1",
-    "css-loader": "^3.1.0",
-    "file-loader": "^4.1.0",
+    "css-loader": "^3.5.1",
+    "file-loader": "^4.3.0",
     "html-webpack-plugin": "^3.2.0",
-    "mini-css-extract-plugin": "^0.8.0",
+    "mini-css-extract-plugin": "^0.8.2",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "postcss-loader": "^3.0.0",
     "style-loader": "^0.23.1",
     "terser-webpack-plugin": "^1.3.0",
-    "uglifyjs-webpack-plugin": "^2.1.3",
-    "webpack": "^4.36.1",
-    "webpack-cli": "^3.3.6",
-    "webpack-dev-server": "^3.7.2",
-    "webpack-merge": "^4.2.1"
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3",
+    "webpack-merge": "^4.2.2"
   }
 }
