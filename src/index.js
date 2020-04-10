@@ -48,7 +48,6 @@ let icApp = ic.icApp
 var _root_ = new icApp.e('#root')
 _root_.chr()
 setColor('red')
-//Theme.set('red')
 
 class ILog extends IAR {
 	constructor() {
@@ -118,7 +117,7 @@ class ILog extends IAR {
 	EditCall(i, e) {
 		var d
 		i = i >= 0 ? (Data.length - ++i) : -1
-		this.scroll = i == -1 ? null : ({e: d = document.scrollingElement, v: d.scrollTop})
+		this.scroll = {e: d = document.scrollingElement, v: i == -1 ? 0 : d.scrollTop}
 		const c = a => a.toString().length == 1 ? '0' + a : a.toString()
 		const a = a => `${a.getFullYear()}-${c(a.getMonth() + 1)}-${c(a.getDate())}`
 		const b = a => `${c(a.getHours())}:${c(a.getMinutes())}`
