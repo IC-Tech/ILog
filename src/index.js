@@ -55,6 +55,7 @@ class ILog extends IAR {
 		this.data = {
 			ui: 0,
 			menu: false,
+			esize: 20
 		}
 		this.dialog = {
 			remove: (_ => [this.dialogs.splice(_, 1), this.update()]).bind(this),
@@ -81,6 +82,7 @@ class ILog extends IAR {
 		}).bind(this)
 		this.EditActon = this.EditActon.bind(this)
 		this.Import = this.Import.bind(this)
+		this.load = this.load.bind(this)
 		this.hisUp = ((...a) => [
 			a[0] = (this.his = Object.assign(this.his, a[0])),
 			document.title = a[1] || 'ILog by IC-Tech',
@@ -256,6 +258,11 @@ class ILog extends IAR {
 			this.scroll == !!0
 		}
 	}
+	load() {
+		var a
+		this.scroll = {e: a = document.scrollingElement, v: a.scrollTop}
+		this.update({esize: this.data.esize + 20})
+	}
 	willUpdate() {}
 	render() {
 		return (
@@ -271,13 +278,20 @@ class ILog extends IAR {
 						{t: 'span', txt: 'ILog'}
 					]}
 				]},
-				{t: 'main', cl: 'Entry', s: {display: this.data.ui == 0 ? 'flex' : 'none'}, ch: Data.slice().reverse().map((_, a) => ({
-					t: 'div', e: [['onclick', _ => this.EditCall(a, 0)]], ch: [
-						{t: 'span', cl: 'c1', txt: _.name},
-						{t: 'span', cl: 'c2', txt: _.content},
-						{t: 'span', cl: 'c3', txt: new Date(_.timeM).toString()},
-					]}
-				))},
+				{t: 'main', cl: 'Entry', s: {display: this.data.ui == 0 ? 'flex' : 'none'}, ch: [
+					...Data.slice().reverse().slice(0, this.data.esize).map((_, a) => (
+						{t: 'div', cl: 'c1', e: [['onclick', _ => this.EditCall(a, 0)]], ch: [
+							{t: 'span', cl: 'c1', txt: _.name},
+							{t: 'span', cl: 'c2', txt: _.content},
+							{t: 'span', cl: 'c3', txt: new Date(_.timeM).toString()},
+						]}
+					)),
+				...(this.data.esize < Data.length ? [
+						{t: 'div', cl: 'c2', ch: [
+							{t: 'span', e: [['onclick', this.load]], txt: 'Load More'}
+						]}
+					] : [])
+				]},
 				{t: 'div', cl: 'Editor', s: {display: this.data.ui == 1 ? 'flex' : 'none'}, ch: [
 					{t: 'div', ch: [
 						{t: 'label', nodes: 1, ch: [
