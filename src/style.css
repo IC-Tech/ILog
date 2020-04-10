@@ -107,6 +107,9 @@ body, a, span, p, textarea {
 .Entry > .c2 {
   display: block;
 }
+.Entry > .c2.s1 {
+  display: none;
+}
 .Entry > .c2 span {
   display: block;
   margin: 4px auto;

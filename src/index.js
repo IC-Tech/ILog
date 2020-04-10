@@ -258,8 +258,8 @@ class ILog extends IAR {
 			this.scroll == !!0
 		}
 	}
-	load() {
-		var a
+	load(a) {
+		this.skipload = a.timeStamp
 		this.scroll = {e: a = document.scrollingElement, v: a.scrollTop}
 		this.update({esize: this.data.esize + 20})
 	}
@@ -280,17 +280,15 @@ class ILog extends IAR {
 				]},
 				{t: 'main', cl: 'Entry', s: {display: this.data.ui == 0 ? 'flex' : 'none'}, ch: [
 					...Data.slice().reverse().slice(0, this.data.esize).map((_, a) => (
-						{t: 'div', cl: 'c1', e: [['onclick', _ => this.EditCall(a, 0)]], ch: [
+						{t: 'div', cl: 'c1', e: [['onclick', _ => _.timeStamp == this.skipload ? 0 : this.EditCall(a, 0)]], ch: [
 							{t: 'span', cl: 'c1', txt: _.name},
 							{t: 'span', cl: 'c2', txt: _.content},
 							{t: 'span', cl: 'c3', txt: new Date(_.timeM).toString()},
 						]}
 					)),
-				...(this.data.esize < Data.length ? [
-						{t: 'div', cl: 'c2', ch: [
-							{t: 'span', e: [['onclick', this.load]], txt: 'Load More'}
-						]}
-					] : [])
+				...([{t: 'div', cl: this.data.esize < Data.length ? ['c2'] : ['c2', 's1'], ch: [
+					{t: 'span', e: [['onclick', this.load]], txt: 'Load More'}
+				]}])
 				]},
 				{t: 'div', cl: 'Editor', s: {display: this.data.ui == 1 ? 'flex' : 'none'}, ch: [
 					{t: 'div', ch: [
