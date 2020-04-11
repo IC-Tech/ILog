@@ -47,7 +47,7 @@ const setColor = c => {
 let icApp = ic.icApp
 var _root_ = new icApp.e('#root')
 _root_.chr()
-setColor('red')
+setColor((a => ColorThemes.indexOf(a) >= 0 ? a : 'red')(localStorage['IC-Tech.ILog-Theme'] || ''))
 
 class ILog extends IAR {
 	constructor() {
