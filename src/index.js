@@ -89,21 +89,46 @@ class ILog extends IAR {
 			a[2] = a[2] || location.pathname + location.search,
 			Object.keys(this.his).some(_ => this.his[_] != a[0][_]) || this.hisUp.sk ? 0 : history[a[3] ? 'replaceState' : 'pushState'](...a)
 		]).bind(this)
+		this.his2 = ((...a) => {
+			if(a[0].home) {
+				a = 0
+				if(this.his.i != -1) a++
+				if(this.his.m) a++
+				this.his2.go(a * -1)
+			}
+			else {
+				if(this.his.i != -1 && this.his.m) {
+					this.skipstate = 1
+					this.his2.go(-1)
+					a[3] = 1
+				}
+				this.hisUp(...a)
+			}
+		}).bind(this)
+		this.his2.go = (a => history.go(a)).bind(this)
+		this.his2.c = (_ => history.length - this.his2.sl).bind(this.his2)
+		this.his2.sl = history.length
 	}
 	didMount() {
 		console.log('icApp-render:speed - ' + (window.ic.speed = Date.now() - window.ic.pageLoad))
 		new icApp.e('.menu').ae('click', e => {
-			if(e.target.classList.contains('menu')) history.go(-1)
+			if(e.target.classList.contains('menu')) this.his2.go(-1)
 		})
+		this.skipstate = 0
 		const state = (_ => {
 			var a = _.state
+			document.title = (['ILog by IC-Tech', 'Create New • ILog', 'Edit • ILog', 'Settings • ILog'])[a.i + 1]
+			if(this.skipstate) {
+				this.his = a
+				return this.skipstate = 0
+			}
 			this.hisUp.sk = 1
+			this.setMenu(a.m)
 			if(a.i == 0) this.EditCall(-1)
 			else if(a.i == 1) Data.some((_, b) => _.timeC == a.d ? (this.EditCall(Data.length - ++b) ? 1 : 1) : 0)
-			else if(this.his.i == 0 || this.his.i == 1) this.EditActon(0)
 			else if(a.i == 2) this.update({ui: 2})
 			else if(a.i == -1) this.update({ui: 0})
-			this.setMenu(a.m)
+			this.his = a
 			this.hisUp.sk = 0
 		}).bind(this)
 		var a = pram('ac'), b
@@ -112,7 +137,9 @@ class ILog extends IAR {
 			a = -1
 			b = !!0
 		}
-		history.replaceState(this.his = {m:0, i: a, d: b}, document.title, location.pathname + location.search)
+		var c = location.pathname + location.search
+		this.his2(this.his = {m:0, i: -1, d: 0}, document.title, location.pathname, 1)
+		if(a != -1) this.his2({m:0, i: a, d: b}, document.title, c)
 		state({state: {i: a, d: b}})
 		window.addEventListener('popstate', state)
 	}
@@ -141,7 +168,7 @@ class ILog extends IAR {
 			],
 			ui: 1
 		})
-		this.hisUp({m: 0, i: i == -1 ? 0 : 1, d: i == -1 ? d : Data[i].timeC}, i == -1 ? 'Create New • ILog' : 'Edit • ILog', location.pathname + `?ac=${i == -1 ? 'new' : `edit&it=${i == -1 ? d : Data[i].timeC}`}`, i == -1 && this.his.m == 1)
+		this.his2({m: 0, i: i == -1 ? 0 : 1, d: i == -1 ? d : Data[i].timeC}, i == -1 ? 'Create New • ILog' : 'Edit • ILog', location.pathname + `?ac=${i == -1 ? 'new' : `edit&it=${i == -1 ? d : Data[i].timeC}`}`, i == -1 && this.his.m == 1)
 		this.i = i
 		this.setMenu()
 	}
@@ -153,7 +180,7 @@ class ILog extends IAR {
 		a.st.overflow = v ? 'hidden' : 'unset'
 		a.st.height = v ? '100%' : 'auto'
 		new icApp.e('.menu').st.display = v ? 'block' : 'none'
-		if(v) this.hisUp({m: !!v})
+		if(v) this.his2({m: !!v})
 		this.update({menu: !!v})
 	}
 	EditActon(v) {
@@ -176,7 +203,7 @@ class ILog extends IAR {
 			}
 			Data[this.i = this.i == -1 ? Data.length : this.i] = v
 			saveData(Data)
-			this.hisUp({m: 0, i: 1, d: Data[this.i].timeC}, 'Edit • ILog', location.pathname + `?ac=edit&it=${Data[this.i].timeC}`, 1)
+			this.his2({m: 0, i: 1, d: Data[this.i].timeC}, 'Edit • ILog', location.pathname + `?ac=edit&it=${Data[this.i].timeC}`, 1)
 		}
 		else if(v == 2) {
 			this.dialog.create({
@@ -188,7 +215,7 @@ class ILog extends IAR {
 					if(a == 0) {
 			 	 		Data.splice(this.i, 1)
 						saveData(Data)
-						this.hisUp({i: -1, m: 0}, 'ILog by IC-Tech', location.pathname)
+						this.his2({home:1})
 					}
 					this.data.ui = 0
 					this.dialog.remove(b)
@@ -196,8 +223,7 @@ class ILog extends IAR {
 			})
 			return
 		}
-		this.hisUp({i: -1, m: 0}, 'ILog by IC-Tech', location.pathname)
-		this.update({ui: 0})
+		this.his2({home:1})
 	}
 	Export() {
 		var a = document.createElement('a')
@@ -244,7 +270,7 @@ class ILog extends IAR {
   	if(a == 1 || a == 0) {
   		this.update({ui: a == 0 ? 0 : 2})
   		this.setMenu()
-			this.hisUp({i: a == 0 ? -1 : 2, m: 0}, a == 0 ? 'ILog by IC-Tech' : 'Settings • ILog', location.pathname, a != 0)
+			this.his2(a == 0 ? {home: 1} : {i: 2, m: 0}, 'Settings • ILog', location.pathname, 1)
   	}
   	else if(a == 2) {
   		var c = ColorThemes[parseInt(b.target.dataset.a)]
