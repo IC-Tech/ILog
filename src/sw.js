@@ -2,7 +2,7 @@
 const _caches_main = 'ic-c-v2';
 const _caches_ = {
   app: {
-    name: _caches_main + '-app-v2',
+    name: _caches_main + '-app-v3',
     data: [ '/ilog.bundle.js', '/style/ilog.css' ]
   },
   runtime: {

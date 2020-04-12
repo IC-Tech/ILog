@@ -1,6 +1,6 @@
 {
   "name": "ilog",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Project ILog (201907221623)",
   "main": "src/index.js",
   "scripts": {
