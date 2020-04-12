@@ -34,17 +34,17 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js')
 window.ic = window.ic || []
 window.ic.pageLoad = Date.now()
 document.addEventListener('DOMContentLoaded', () => {
+let icApp = ic.icApp
 
 const setColor = c => {
 	var b = new icApp.e('#root')
 	ColorThemes.forEach(a => a == c ? (b.clc(c) ? 0 : b.cla(c)) : b.clr(a))
 	var a = a => a.length == 1 ? '0' + a : a
 	a = '#' + getComputedStyle(b.v).getPropertyValue('--ic-c-i4').replace(/ /g, '').split(',').map(b => a(parseInt(b).toString(16))).join('')
-	document.querySelector('[name=theme-color]').setAttribute('content', a)
-	document.querySelector('[name=msapplication-navbutton-color]').setAttribute('content', a)
-	document.querySelector('[name=apple-mobile-web-app-status-bar-style]').setAttribute('content', a)
+	new icApp.e('[name=theme-color]').sa('content', a)
+	new icApp.e('[name=msapplication-navbutton-color]').sa('content', a)
+	new icApp.e('[name=apple-mobile-web-app-status-bar-style]').sa('content', a)
 }
-let icApp = ic.icApp
 var _root_ = new icApp.e('#root')
 _root_.chr()
 setColor((a => ColorThemes.indexOf(a) >= 0 ? a : 'red')(localStorage['IC-Tech.ILog-Theme'] || ''))
